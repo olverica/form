@@ -6,7 +6,7 @@ export interface Field {
     compute(): any
 }
 
-export abstract class TextField implements Field {
+export class TextField implements Field {
     
     public name = 'text-field' 
 

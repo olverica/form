@@ -34,20 +34,19 @@ export class Form
 	    this.fields.push(field);
     }
 
-    detach(field: Field): boolean {
+    detach(field: Field): void {
 		let index = this.fields.indexOf(field);
-
 		if (index !== -1)
-			this.fields.splice(index, 1);
+			throw Error(`Cant find field while detaching`)
 
-		return index === -1;
+		this.fields.splice(index, 1);
     }
 
 	validate(): boolean {
 		return false;
 	}
 
-	send() {
+	submit() {
 		return;
 	}
 }
