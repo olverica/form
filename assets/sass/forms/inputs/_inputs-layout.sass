@@ -1,0 +1,94 @@
+.ol-input
+  height: 60px
+  width: 600px
+  background: white
+  border: 2px solid gray
+  border-radius: 5px
+  padding: 0 15px 
+  gap: 10px
+  font-size: 16px
+  line-height: 1
+  // flex
+  display: flex
+  align-items: center
+  // animation
+  transition: border .3s 
+
+// ======
+// states 
+// ======
+
+.ol-input--active
+  // 
+  .ol-input__title
+    font-size: 0.8em
+  // 
+  .ol-input__field
+    max-height: 1em
+    margin-top: 0.3em
+    opacity: 1
+
+
+.ol-input--focused
+  border-color: blue
+
+// ========
+// statuses
+// ========
+
+.ol-input--success
+  color: green
+
+
+.ol-input--warning
+  color: orange
+
+
+.ol-input--error
+  color: red
+
+// ========
+// 
+// ========
+
+.ol-input__icon
+  font-size: 1.6em
+  user-select: none
+  color: inherit
+
+.ol-input__button
+  font-size: 1.6em
+  user-select: none
+
+
+.ol-input__inner
+  width: 100%
+  // flex
+  display: flex
+  flex-direction: column
+
+.ol-input__title
+  font-size: 1em
+  // flex
+  display: flex
+  align-items: center
+  gap: 5px
+  color: inherit
+  // animation
+  transition: font-size .3s
+  
+.ol-input__counter
+  font-size: .8em
+  opacity: 0
+  // animation
+  transition: opacity .3s
+
+.ol-input__field
+  width: 100%
+  font-size: 1em
+  max-height: 0em
+  margin-top: 0em
+  opacity: 0
+  // animation
+  transition: max-height .3s, margin .3s, opacity .2s
+
