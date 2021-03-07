@@ -1,7 +1,7 @@
 <template>
   <span 
-    class="ol-input__counter"
-    :class="{'ol-input__counter--shown': shown}">
+    class="ol-field__counter"
+    :class="{'ol-field__counter--show': shown}">
 
     {{ counter }}
   </span>

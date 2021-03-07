@@ -1,21 +1,21 @@
 <template>
   <fieldset 
-    class="ol-input"
+    class="ol-field ol-field--input"
     :class="{
-      'ol-input--focused': focused,
-      'ol-input--active': active}"
+      'ol-field--focused': focused,
+      'ol-field--active': active}"
     @click="onClick">
     
-    <i class="ol-input__icon material-icons">{{ icon }}</i>
+    <i class="ol-field__icon ol-field__icon--email"></i>
 
-    <div class="ol-input__inner">
+    <div class="ol-field__wrapper">
       <olverica-input-title
         :countable="countable"
         :label="title"/>
 
       <input 
         ref="input"
-        class="ol-input__field" 
+        class="ol-field__input" 
 
         v-model="entry"
         :placeholder="placeholder"

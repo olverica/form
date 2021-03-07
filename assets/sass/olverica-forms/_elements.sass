@@ -1,0 +1,68 @@
+//===============
+// field elements
+//===============
+
+.ol-field__icon
+  font-size: 1.6em
+  user-select: none
+
+
+.ol-field__button
+  font-size: 1.4em
+  user-select: none
+
+
+.ol-field__wrapper
+  width: 100%
+  display: flex
+  flex-direction: column
+
+
+.ol-field__title
+  color: inherit
+  font-size: 1em
+  // flex
+  display: flex
+  align-items: center
+  justify-content: space-between 
+  // animation
+  transition: font-size .3s
+
+
+.ol-field__counter
+  font-size: .8em
+  opacity: 0
+  // animation
+  transition: opacity .3s
+  // 
+  &--shown
+    opacity: 1
+
+  
+.ol-field__input
+  width: 100%
+  font-size: 1em
+  max-height: 0em
+  margin-top: 0em
+  opacity: 0
+  // animation
+  transition: max-height .3s, opacity .2s
+
+.ol-field--input
+  display: flex
+  align-items: center
+
+
+.ol-field__textarea
+  height: max-content
+  width: 100%
+  font-size: 0.8em
+  // animation
+  transition: font-size .3s
+
+.ol-field--textarea
+  display: flex
+  flex-direction: column
+
+
+

@@ -1,5 +1,5 @@
 <template>
-  <label class="ol-input__title">
+  <label class="ol-field__title">
     {{ title }} 
 
     <olverica-input-counter

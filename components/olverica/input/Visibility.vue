@@ -1,9 +1,7 @@
 <template>
   <button
-    class="ol-input__button material-icons"
+    class="ol-field__button ol-field__button--shown"
     @click="toggle">
-
-    {{ icon }}
   </button>
 </template>
 
