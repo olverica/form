@@ -5,7 +5,7 @@
     </olverica-form>
 
     <fieldset class="ol-field ol-field--textarea">
-      <label class="ol-field__title">Title<span class="ol-field__counter">0/180</span></label>
+      <label class="ol-field__title">Comment<span class="ol-field__counter">0/180</span></label>
     </fieldset>
 
   </main>
