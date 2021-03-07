@@ -1,10 +1,14 @@
 <template>
-  <span 
-    class="ol-field__counter"
-    :class="{'ol-field__counter--show': shown}">
+  <label class="ol-field__title">
+    {{ title }} 
 
-    {{ counter }}
-  </span>
+    <span 
+      class="ol-field__counter"
+      :class="{'ol-field__counter--show': shown}">
+
+      {{ counter }}
+    </span>
+  </label>
 </template>
 
 <script lang="ts">
@@ -12,6 +16,10 @@ import Vue, {PropType} from 'vue'
 
 export default Vue.extend({
   props: {
+    errors: {type: Array as PropType<string[]>, default: () => []},
+
+    label: {type: String as PropType<string>, default: ''},
+
     entry: {type: String as PropType<string>, default: ''},
 
     max: {type: Number as PropType<number>,  default: -1}
@@ -33,7 +41,7 @@ export default Vue.extend({
         `${this.length}/${this.max}` : `${this.length}`;
     },
 
-    shown() {
+    shown(): boolean {
       if (this.max < 0)
         return true;
 
@@ -41,7 +49,11 @@ export default Vue.extend({
         return true;
 
       return false;
-    }
+    },
+
+    title(): string {
+      return this.label;
+    },
   }
 })
 </script>
