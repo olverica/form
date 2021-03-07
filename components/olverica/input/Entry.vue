@@ -1,7 +1,7 @@
 <template>
   <input 
     ref="input"
-    class="ol-input__field" 
+    class="ol-field__input" 
 
     v-model="entry"
     :placeholder="placeholder"
