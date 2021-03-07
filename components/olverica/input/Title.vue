@@ -14,9 +14,9 @@ export default Vue.extend({
   props: {
     countable: {type: Boolean as PropType<boolean>, default: false},
 
-    label: {type: String as PropType<string>, default: ''},
+    errors: {type: Array as PropType<string[]>, default: () => []},
 
-    errors: {type: Array as PropType<string[]>, default: () => []} 
+    label: {type: String as PropType<string>, default: ''},
   },
 
   computed: {
