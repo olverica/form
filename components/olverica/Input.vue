@@ -4,25 +4,20 @@
     :class="{
       'ol-input--focused': focused,
       'ol-input--active': active}"
-    @click="onClick">
+    @click="onclick">
     
     <i class="ol-input__icon material-icons">{{ icon }}</i>
 
     <div class="ol-input__inner">
-      <olverica-input-title
+      <olverica-input-status
         :countable="countable"
         :label="title"/>
 
-      <input 
+      <olverica-input-entry
         ref="input"
-        class="ol-input__field" 
-
-        v-model="entry"
-        :placeholder="placeholder"
-        :type="inputType"
-
-        @focus="onFocus"
-        @blur="onBlur">
+        :focused.sync="focused"
+        :entry.sync="entry"
+        :hidden="hidden"/>
     </div>
 
     <olverica-input-visibility
@@ -35,17 +30,22 @@
 <script lang="ts">
 import Vue, {PropType} from 'vue'
 import {Form} from '~/services/Form' 
+import {Rule} from '~/services/Rules' 
 import {TextField} from '~/services/Fields' 
 
+
 export default Vue.extend({
+  
   inject: {
-    form: { default: undefined }
+    form: {default: undefined}
   },
 
   props: {
     countable: {type: Boolean as PropType<boolean>, default: true},
 
     hideable: {type: Boolean as PropType<boolean>, default: true},
+
+    rules: {type: Array as PropType<Rule[]>, default: () => []},
 
     placeholder: {type: String as PropType<string>, default: 'placeholder'},
 
@@ -59,47 +59,42 @@ export default Vue.extend({
   data() {
     return {
       input: new TextField(),
-
-      hidden: false,
-      focused: false,
-
       entry: '',
+
+      focused: false,
+      hidden: false,
     }
   },
 
   computed: {
-    inputType(): string {
-      return (this.hideable && this.hidden) ? 'password' : this.type;
-    },
-
     active(): boolean {
       return this.focused || Boolean(this.entry.length);
     },
   },
 
   mounted() {
-    let $this = this as any;
-
-    if ($this.form instanceof Form)
-      $this.form.register(this.input);
+    this.restrict();
+    this.register();
   },
 
   methods: {
-    onFocus() {
-      this.focused = true;
+    register() {
+      let $this = this as any;
+      
+      if ($this.form instanceof Form )
+        $this.form.register(this.input);
     },
 
-    onBlur() {
-      this.focused = false;
+    restrict() {
+      this.input.restrict(this.rules);
     },
 
-    onClick() {
+    onclick() {
       if (this.focused || this.active)
         return;
 
-      let input = this.$refs.input;
-      if (input instanceof HTMLInputElement)
-        input.focus();
+      let input = (this.$refs.input as any).$el;
+      input.focus();
     }
   }
 })

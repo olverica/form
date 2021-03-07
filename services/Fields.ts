@@ -15,7 +15,7 @@ export class TextField implements Field {
     private _entry: string = '';
 
     constructor(rules: Rule[] = []) {
-        this.rules = rules;
+        this.restrict(rules);
     }
 
     get entry(): string {
@@ -25,6 +25,10 @@ export class TextField implements Field {
     set entry(value: string)  {
         this.validate(value);
         this._entry = value;
+    }
+
+    restrict(rules: Rule[] = []) {
+        this.rules = rules;
     }
 
     validate(value: string) {
