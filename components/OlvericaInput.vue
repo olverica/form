@@ -3,13 +3,9 @@
     <i class="ol-input__icon material-icons">{{ icon }}</i>
 
     <div class="ol-input__inner">
-      <label class="ol-input__title">
-        {{ title }} 
-
-        <span v-if="countable" class="ol-input__counter">
-          {{ counter }}
-        </span>
-      </label>
+      <olverica-input-title
+        :countable="countable"
+        :label="title"/>
 
       <input 
         class="ol-input__field" 
@@ -17,18 +13,16 @@
         :type="inputType">
     </div>
 
-    <button
-      class="ol-input__button material-icons"
-      @click="toggleVisibility">
+    <olverica-input-visibility
+      v-if="hideable"
+      v-model="hidden"/>
 
-      {{ visibilityIcon }}
-    </button>
-    
   </fieldset>
 </template>
 
 <script lang="ts">
 import Vue, {PropType} from 'vue'
+import {Form} from '~/services/Form' 
 import {TextField} from '~/services/Fields' 
 
 export default Vue.extend({
@@ -47,32 +41,25 @@ export default Vue.extend({
 
       countable: true,
       hideable: true,
-      visible: false
+      hidden: true
     }
   },
 
   computed: {
-    counter(): string {
-      return '0/666';
-    },
-
     inputType(): string {
-      return (this.hideable && !!!this.visible) ? 'password' : this.type;
-    },
-
-    visibilityIcon(): string {
-      return this.visible ? 'visibility_off' : 'remove_red_eye';
+      return (this.hideable && this.hidden) ? 'password' : this.type;
     }
   },
 
   mounted() {
-    this.form?.register(this.input);
+    let $this = this as any;
+
+    if ($this.form instanceof Form)
+      $this.form.register(this.input);
   },
 
   methods: {
-    toggleVisibility() {
-      this.visible = !!!this.visible;
-    }
+
   }
 })
 </script>

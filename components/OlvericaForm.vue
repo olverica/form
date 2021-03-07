@@ -10,10 +10,7 @@ import {Form} from '~/services/Form'
 
 export default Vue.extend({
   props: {
-    request: {
-      default: null,
-      type: Function as PropType<() => void | null>
-    },
+    request: {type: Function as PropType<() => void | null>, default: null},
   },
 
   data () {
@@ -22,7 +19,7 @@ export default Vue.extend({
     }
   },
 
-  provide() {
+  provide(): any {
     return {
       form: this.form
     }
