@@ -90,11 +90,9 @@ export default Vue.extend({
     },
 
     onclick() {
-      if (this.focused || this.active)
-        return;
-
-      let input = (this.$refs.input as any).$el;
-      input.focus();
+      let el = this.$el.querySelector('input')
+      if (el !== null)
+        el.focus();
     }
   }
 })

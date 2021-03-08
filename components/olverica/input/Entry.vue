@@ -3,8 +3,8 @@
     ref="input"
     class="ol-input__field" 
 
-    v-model="entry"
     :placeholder="placeholder"
+    :value="entry"
     :type="inputType"
 
     @blur="onblur"
@@ -27,6 +27,13 @@ export default Vue.extend({
 
     type: {type: String as PropType<string>, default: 'text'},
   },
+  
+  data() {
+    return { 
+      blurTimeout:  null as NodeJS.Timeout|null,
+      blurDelay: 200
+    }
+  },
 
   computed: {
     inputType(): string {
@@ -34,13 +41,31 @@ export default Vue.extend({
     },
   },
 
+  watch: {
+    focused(value) {
+      if (value)
+        (this.$el as any).focus();
+    }
+  },
+
   methods: {
-    onfocus(): void {
-      this.$emit('update:focused', true);
+    preventBluring(): void {
+      if (this.blurTimeout === null)
+        return;
+        
+      clearTimeout(this.blurTimeout);
+      this.blurTimeout = null;
     },
 
     onblur(): void {
-      this.$emit('update:focused', false);
+      this.preventBluring();
+      this.blurTimeout = setTimeout(() => 
+        this.$emit('update:focused', false), this.blurDelay);
+    },
+
+    onfocus(): void {
+      this.preventBluring();
+      this.$emit('update:focused', true);
     },
 
     oninput(event: InputEvent): void {
