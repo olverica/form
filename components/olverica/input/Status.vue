@@ -1,10 +1,10 @@
 <template>
-  <label class="ol-input__title">
+  <label class="ol-field__title">
     {{ title }} 
 
     <span 
-      class="ol-input__counter"
-      :class="{'ol-input__counter--shown': shown}">
+      class="ol-field__counter"
+      :class="{'ol-field__counter--show': shown}">
 
       {{ counter }}
     </span>

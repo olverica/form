@@ -1,14 +1,14 @@
 <template>
   <fieldset 
-    class="ol-input"
+    class="ol-field ol-field--input"
     :class="{
-      'ol-input--focused': focused,
-      'ol-input--active': active}"
+      'ol-field--focused': focused,
+      'ol-field--active': active}"
     @click="onclick">
     
-    <i class="ol-input__icon material-icons">{{ icon }}</i>
+    <i class="ol-field__icon ol-field__icon--email"></i>
 
-    <div class="ol-input__inner">
+    <div class="ol-field__wrapper">
       <olverica-input-status
         :countable="countable"
         :label="title"/>
