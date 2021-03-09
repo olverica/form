@@ -1,34 +1,34 @@
-export interface Rule {
-    name: string,
-    check: (entry: string) => boolean
-}
+import {Rule} from '@/services/types'
 
 export class Required implements Rule {
-    public readonly name = 'required';
-
-    check(entry: string): boolean {
-        return entry.length > 0;
+    check(entry: string): string|null {
+        return entry.length ? 
+            'This field is required' : null;
     }
 }
 
-export class Size implements Rule { 
-    private max: null | number = null;
-    private min: null | number = null;
+export class Max implements Rule {
+    public readonly value: number;
 
-    public readonly name = 'size';
-
-    constructor(min = null, max = null) {
-        this.max = max;
-        this.min = min;
+    constructor(value: number) {
+        this.value = value;
     }
 
-    check(entry: string): boolean {
-        if (this.min !== null && entry.length < this.min)
-            return false;
-        
-        if (this.max !== null && entry.length > this.max)
-            return false;
+    check(entry: string): string|null {
+        return entry.length < this.value ? 
+            null : 'Max size exceeeeded'
+    }
+}
 
-        return true;
+export class Min implements Rule {
+    public readonly value : number;
+
+    constructor(value: number) {
+        this.value = value;
+    }
+
+    check(entry: string): string|null {
+        return entry.length > this.value ? 
+            null : 'Too few characters'
     }
 }

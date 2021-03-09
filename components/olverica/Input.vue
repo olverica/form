@@ -4,17 +4,18 @@
     :class="{
       'ol-field--focused': focused,
       'ol-field--active': active}"
-    @click="onclick">
+    @click="focus">
     
     <i class="ol-field__icon ol-field__icon--email"></i>
 
     <div class="ol-field__wrapper">
       <olverica-input-status
         :countable="countable"
-        :label="title"/>
+        :label="title"
+        :errors="errors"/>
 
       <olverica-input-entry
-        ref="input"
+        :placeholder="placeholder"
         :focused.sync="focused"
         :entry.sync="entry"
         :hidden="hidden"/>
@@ -29,16 +30,16 @@
 
 <script lang="ts">
 import Vue, {PropType} from 'vue'
-import {Form} from '~/services/Form' 
-import {Rule} from '~/services/Rules' 
-import {TextField} from '~/services/Fields' 
+import {Form, Field} from '~/services/types' 
 
+import {Rule, Max, Min} from '~/services/Rules' 
 
 export default Vue.extend({
   
   inject: {
-    form: {default: undefined}
+    $form: {default: undefined}
   },
+
 
   props: {
     countable: {type: Boolean as PropType<boolean>, default: true},
@@ -58,11 +59,12 @@ export default Vue.extend({
 
   data() {
     return {
-      input: new TextField(),
-      entry: '',
-
+      name: '',
       focused: false,
       hidden: false,
+      entry: '',
+
+      errors: [] as string[]
     }
   },
 
@@ -70,29 +72,48 @@ export default Vue.extend({
     active(): boolean {
       return this.focused || Boolean(this.entry.length);
     },
+
+    form(): Form|null {
+      let injected = (this as any).$form;
+
+      if (typeof injected === 'object' 
+          && 'register' in injected 
+          && 'submit' in injected)
+          return injected;
+        
+        return null
+    }
   },
 
   mounted() {
-    this.restrict();
     this.register();
   },
 
+  watch: {
+    focused(value: boolean) {
+      if (!!!value)
+        this.validate();
+    }
+  },
+
   methods: {
-    register() {
-      let $this = this as any;
-      
-      if ($this.form instanceof Form )
-        $this.form.register(this.input);
-    },
-
-    restrict() {
-      this.input.restrict(this.rules);
-    },
-
-    onclick() {
+    focus(): void {
       let el = this.$el.querySelector('input')
       if (el !== null)
         el.focus();
+    },
+
+    register() {
+      if (this.form)
+        this.form.register(this);
+    },
+
+    compute(): string {
+      return this.entry
+    },
+
+    validate(): boolean {
+      return false;
     }
   }
 })

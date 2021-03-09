@@ -52,6 +52,9 @@ export default Vue.extend({
     },
 
     title(): string {
+      if (this.errors.length)
+        return this.errors[0];
+
       return this.label;
     },
   }
