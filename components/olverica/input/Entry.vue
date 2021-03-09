@@ -35,13 +35,6 @@ export default Vue.extend({
   computed: {
     inputType(): string {
       return this.hidden ? 'password' : this.type;
-    },
-  },
-
-  watch: {
-    focused(value) {
-      if (value)
-        (this.$el as any).focus();
     }
   },
 
@@ -61,8 +54,12 @@ export default Vue.extend({
 
     onblur(): void {
       this.preventBluring();
+
+      if (this.entry)
+        this.$emit('validate');
+        
       this.blurTimeout = setTimeout(() => 
-        this.$emit('update:focused', false), this.blurDelay);
+        this.$emit('update:active', false), this.blurDelay);
     },
 
 

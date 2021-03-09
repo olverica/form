@@ -15,10 +15,11 @@
         :errors="errors"/>
 
       <olverica-input-entry
-        :placeholder="placeholder"
         :focused.sync="focused"
         :entry.sync="entry"
-        :hidden="hidden"/>
+        :placeholder="placeholder"
+        :hidden="hidden"
+        @validate="validate"/>
     </div>
 
     <olverica-input-visibility
@@ -30,9 +31,9 @@
 
 <script lang="ts">
 import Vue, {PropType} from 'vue'
-import {Form, Field} from '~/services/types' 
+import { Max } from '~/services/Rules';
+import {Form, Rule} from '~/services/types' 
 
-import {Rule, Max, Min} from '~/services/Rules' 
 
 export default Vue.extend({
   
@@ -40,13 +41,12 @@ export default Vue.extend({
     $form: {default: undefined}
   },
 
-
   props: {
     countable: {type: Boolean as PropType<boolean>, default: true},
 
     hideable: {type: Boolean as PropType<boolean>, default: true},
 
-    rules: {type: Array as PropType<Rule[]>, default: () => []},
+    rules: {type: Array as PropType<Rule[]>, default: () => [new Max(12)]},
 
     placeholder: {type: String as PropType<string>, default: 'placeholder'},
 
@@ -54,21 +54,27 @@ export default Vue.extend({
 
     type: {type: String as PropType<string>, default: 'email'},
 
+    name: {type: String as PropType<string>, default: 'field'},
+
     icon: {type: String as PropType<string>, default: 'account_circle'},
   },
 
   data() {
     return {
-      name: '',
-      focused: false,
-      hidden: false,
       entry: '',
 
+      focused: false,
+      hidden: false,
+      
       errors: [] as string[]
     }
   },
 
   computed: {
+    correct(): boolean {
+      return Boolean(this.errors);
+    },
+
     active(): boolean {
       return this.focused || Boolean(this.entry.length);
     },
@@ -89,13 +95,6 @@ export default Vue.extend({
     this.register();
   },
 
-  watch: {
-    focused(value: boolean) {
-      if (!!!value)
-        this.validate();
-    }
-  },
-
   methods: {
     focus(): void {
       let el = this.$el.querySelector('input')
@@ -113,7 +112,18 @@ export default Vue.extend({
     },
 
     validate(): boolean {
-      return false;
+      let errors: string[] = [];
+
+      for (let rule of this.rules) {
+        let error = rule.check(this.entry);
+        
+        if (error)
+          errors.push(error);
+      }
+
+      this.errors = errors;
+
+      return this.correct;
     }
   }
 })
