@@ -54,8 +54,6 @@ export default Vue.extend({
 
     onblur(): void {
       this.preventBluring();
-
-  
       this.$emit('validate');
         
       this.blurTimeout = setTimeout(() => 
