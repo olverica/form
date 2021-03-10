@@ -1,6 +1,10 @@
 
+export interface MessagePusher {
+    (message: string): unknown
+}
+
 export interface Rule {
-    check(...args: unknown[]): string|null;
+    check(value: any, error: MessagePusher, warn: MessagePusher): boolean
 }
 
 export interface Data {

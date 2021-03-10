@@ -3,7 +3,8 @@
     class="ol-field ol-field--input"
     :class="{
       'ol-field--focused': focused,
-      'ol-field--active': active}"
+      'ol-field--active': active, 
+      'ol-field--error': incorrect}"
     @click="focus">
     
     <i class="ol-field__icon ol-field__icon--email"></i>
@@ -31,7 +32,8 @@
 
 <script lang="ts">
 import Vue, {PropType} from 'vue'
-import { Max } from '~/services/Rules';
+import {Max, Min} from '~/services/Rules';
+import {Validator} from '~/services/Validator';
 import {Form, Rule} from '~/services/types' 
 
 
@@ -46,7 +48,7 @@ export default Vue.extend({
 
     hideable: {type: Boolean as PropType<boolean>, default: true},
 
-    rules: {type: Array as PropType<Rule[]>, default: () => [new Max(12)]},
+    rules: {type: Array as PropType<Rule[]>, default: () => []},
 
     placeholder: {type: String as PropType<string>, default: 'placeholder'},
 
@@ -62,17 +64,19 @@ export default Vue.extend({
   data() {
     return {
       entry: '',
+      validator: new Validator(),
 
-      focused: false,
       hidden: false,
+      focused: false,
       
-      errors: [] as string[]
+      errors: [] as string[],
+      warnings: [] as string[],
     }
   },
 
   computed: {
-    correct(): boolean {
-      return Boolean(this.errors);
+    incorrect(): boolean {
+      return Boolean(this.errors.length);
     },
 
     active(): boolean {
@@ -92,6 +96,7 @@ export default Vue.extend({
   },
 
   mounted() {
+    this.restrict();
     this.register();
   },
 
@@ -102,9 +107,14 @@ export default Vue.extend({
         el.focus();
     },
 
+    restrict() {
+      this.validator.rules =  [
+        new Max(4), new Min(2)
+      ]
+    },
+
     register() {
-      if (this.form)
-        this.form.register(this);
+      this.form?.register(this);
     },
 
     compute(): string {
@@ -112,18 +122,13 @@ export default Vue.extend({
     },
 
     validate(): boolean {
-      let errors: string[] = [];
+      this.warnings = [];
+      this.errors = [];
 
-      for (let rule of this.rules) {
-        let error = rule.check(this.entry);
-        
-        if (error)
-          errors.push(error);
-      }
+      if (this.entry.length)
+        return this.validator.check(this.entry, this.errors);
 
-      this.errors = errors;
-
-      return this.correct;
+      return true;
     }
   }
 })

@@ -55,13 +55,12 @@ export default Vue.extend({
     onblur(): void {
       this.preventBluring();
 
-      if (this.entry)
-        this.$emit('validate');
+  
+      this.$emit('validate');
         
       this.blurTimeout = setTimeout(() => 
-        this.$emit('update:active', false), this.blurDelay);
+        this.$emit('update:focused', false), this.blurDelay);
     },
-
 
     oninput(event: InputEvent): void {
       let value = '';
