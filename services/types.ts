@@ -1,4 +1,8 @@
 
+export enum Validation {
+    Passed, Failed, Unknown
+}
+
 export interface MessagePusher {
     (message: string): unknown
 }
@@ -29,5 +33,5 @@ export interface Field {
 
     focus(): void;
     compute(): unknown;
-    validate(): boolean;
+    validate(): Validation;
 }

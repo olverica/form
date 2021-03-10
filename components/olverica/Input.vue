@@ -4,7 +4,8 @@
     :class="{
       'ol-field--focused': focused,
       'ol-field--active': active, 
-      'ol-field--error': incorrect}"
+      'ol-field--success': passed,
+      'ol-field--error': failed}"
     @click="focus">
     
     <i class="ol-field__icon ol-field__icon--email"></i>
@@ -20,7 +21,7 @@
         :entry.sync="entry"
         :placeholder="placeholder"
         :hidden="hidden"
-        @validate="validate"/>
+        @validate="check"/>
     </div>
 
     <olverica-input-visibility
@@ -34,7 +35,7 @@
 import Vue, {PropType} from 'vue'
 import {Max, Min} from '~/services/Rules';
 import {Validator} from '~/services/Validator';
-import {Form, Rule} from '~/services/types' 
+import {Form, Rule, Validation} from '~/services/types' 
 
 
 export default Vue.extend({
@@ -65,6 +66,7 @@ export default Vue.extend({
     return {
       entry: '',
       validator: new Validator(),
+      validation: Validation.Unknown,
 
       hidden: false,
       focused: false,
@@ -75,8 +77,12 @@ export default Vue.extend({
   },
 
   computed: {
-    incorrect(): boolean {
-      return Boolean(this.errors.length);
+    failed(): boolean {
+      return this.validation === Validation.Failed;
+    },
+
+    passed(): boolean {
+      return this.validation === Validation.Passed;
     },
 
     active(): boolean {
@@ -121,14 +127,23 @@ export default Vue.extend({
       return this.entry
     },
 
-    validate(): boolean {
+    check() {
+      if (this.entry.length)
+        return this.validate()
+
+      this.validation = Validation.Unknown;
       this.warnings = [];
       this.errors = [];
+    },
 
-      if (this.entry.length)
-        return this.validator.check(this.entry, this.errors);
+    validate(): Validation {
+      this.warnings = [];
+      this.errors = [];
+  
+      this.validation = 
+        this.validator.check(this.entry, this.errors);
 
-      return true;
+      return this.validation;
     }
   }
 })
