@@ -51,13 +51,22 @@ export default Vue.extend({
       this.fields.splice(index, 1);
     },
 
+    dirty(): boolean {
+      for (let field of this.fields) {
+        if (field.dirty())
+          return true;
+      }
+
+      return false;
+    },
+
     validate(): boolean {
       return false;
     },
 
-    submit() {
+    submit(): void {
 
-    }
+    },
   }
 })
 </script>

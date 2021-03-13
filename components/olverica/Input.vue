@@ -52,6 +52,8 @@ export default Vue.extend({
     rules: {type: Array as PropType<Rule[]>, default: () => []},
 
     placeholder: {type: String as PropType<string>, default: 'placeholder'},
+    
+    default: {type: String as PropType<string>, default: ''},
 
     title: {type: String as PropType<string>, default: 'Title'},
 
@@ -65,6 +67,7 @@ export default Vue.extend({
   data() {
     return {
       entry: '',
+
       config: null,
       validator: new Validator(),
 
@@ -74,7 +77,7 @@ export default Vue.extend({
   },
 
   computed: {
-     form(): Form|null {
+    form(): Form|null {
       let form = (this as any).$form;
       return isForm(form) ? form : null;
     },
@@ -101,6 +104,8 @@ export default Vue.extend({
   },
 
   mounted() {
+    this.entry = this.default;
+    
     this.restrict();
     this.register();
   },
@@ -123,6 +128,10 @@ export default Vue.extend({
 
     compute(): string {
       return this.entry
+    },
+
+    dirty(): boolean {
+      return this.default !== this.entry;
     },
 
     validate(): Validation {
