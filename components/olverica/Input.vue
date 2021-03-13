@@ -8,7 +8,8 @@
       'ol-field--error': failed}"
     @click="focus">
     
-    <i class="ol-field__icon ol-field__icon--email"></i>
+    <olverica-input-icon
+      :type="icon || type"/>
 
     <div class="ol-field__wrapper">
       <olverica-input-status
@@ -61,7 +62,7 @@ export default Vue.extend({
 
     name: {type: String as PropType<string>, default: 'field'},
 
-    icon: {type: String as PropType<string>, default: 'account_circle'},
+    icon: {type: String as PropType<string>, default: ''},
   },
 
   data() {
@@ -105,7 +106,7 @@ export default Vue.extend({
 
   mounted() {
     this.entry = this.default;
-    
+
     this.restrict();
     this.register();
   },
