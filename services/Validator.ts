@@ -4,14 +4,33 @@ export class Validator
 {
     public rules: Rule[] = [];
 
-    public check(value: any, errors: string[], warnings: string[] = []): Validation {
-        // traversing rules
-        for (let rule of this.rules)
-            rule.check(value, errors.push.bind(errors), warnings.push.bind(warnings));
-        
-        if (errors.length)
-            return Validation.Failed;
+    public errors: string[] = [];
 
-        return Validation.Passed
+    public warnings: string[] = []
+
+    public state: Validation = Validation.Unknown;
+
+    public check(value: any): Validation {
+        this.warnings = [];
+        this.errors = [];
+
+        // traversing rules
+        let pushError =  this.errors.push.bind(this.errors);
+        let pushWarning = this.warnings.push.bind(this.warnings);
+        
+        for (let rule of this.rules)
+            rule.check(value, pushError, pushWarning);
+        
+        this.state = this.errors.length ?
+            Validation.Failed : Validation.Passed;
+
+        return this.state;
+    }
+
+    clear() {
+        this.warnings = [];
+        this.errors = [];
+
+        this.state = Validation.Unknown;
     }
 }

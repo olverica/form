@@ -35,7 +35,7 @@
 import Vue, {PropType} from 'vue'
 import {Max, Min} from '~/services/Rules';
 import {Validator} from '~/services/Validator';
-import {Form, Rule, Validation} from '~/services/types' 
+import {Form, Rule, Validation, isForm} from '~/services/types' 
 
 
 export default Vue.extend({
@@ -65,40 +65,39 @@ export default Vue.extend({
   data() {
     return {
       entry: '',
+      config: null,
       validator: new Validator(),
-      validation: Validation.Unknown,
 
       hidden: false,
       focused: false,
-      
-      errors: [] as string[],
-      warnings: [] as string[],
     }
   },
 
   computed: {
-    failed(): boolean {
-      return this.validation === Validation.Failed;
-    },
-
-    passed(): boolean {
-      return this.validation === Validation.Passed;
+     form(): Form|null {
+      let form = (this as any).$form;
+      return isForm(form) ? form : null;
     },
 
     active(): boolean {
       return this.focused || Boolean(this.entry.length);
     },
 
-    form(): Form|null {
-      let injected = (this as any).$form;
+    failed(): boolean {
+      return this.validator.state === Validation.Failed;
+    },
 
-      if (typeof injected === 'object' 
-          && 'register' in injected 
-          && 'submit' in injected)
-          return injected;
-        
-        return null
-    }
+    passed(): boolean {
+      return this.validator.state === Validation.Passed;
+    },
+
+    errors(): string[] {
+      return this.validator.errors;
+    },
+
+    warnings(): string[] {
+      return this.validator.warnings;
+    },
   },
 
   mounted() {
@@ -109,14 +108,13 @@ export default Vue.extend({
   methods: {
     focus(): void {
       let el = this.$el.querySelector('input')
-      if (el !== null)
-        el.focus();
+      el?.focus();
     },
 
     restrict() {
       this.validator.rules =  [
         new Max(4), new Min(2)
-      ]
+      ];
     },
 
     register() {
@@ -127,24 +125,14 @@ export default Vue.extend({
       return this.entry
     },
 
-    check() {
-      if (this.entry.length)
-        return this.validate()
-
-      this.validation = Validation.Unknown;
-      this.warnings = [];
-      this.errors = [];
+    validate(): Validation {
+      return this.validator.check(this.entry);
     },
 
-    validate(): Validation {
-      this.warnings = [];
-      this.errors = [];
-  
-      this.validation = 
-        this.validator.check(this.entry, this.errors);
-
-      return this.validation;
-    }
+    check() {
+      return this.entry.length ? 
+        this.validate(): this.validator.clear();
+    },
   }
 })
 </script>

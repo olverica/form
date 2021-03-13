@@ -9,6 +9,7 @@ import Vue, {PropType} from 'vue'
 import {Field, Request} from '@/services/types'
 
 export default Vue.extend({
+  
   props: {
     request: {type: Function as PropType<Request|null>, default: null},
   },
@@ -24,7 +25,6 @@ export default Vue.extend({
       $form: this
     }
   },
-
 
   methods: {
     contains(target: Field): boolean {
