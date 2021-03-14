@@ -12,51 +12,50 @@
 </template>
 
 <script lang="ts">
-import Vue, {PropType} from 'vue'
+import {Component, Prop} from 'vue-property-decorator'
+import Vue from 'vue'
 
-export default Vue.extend({
-  props: {
-    errors: {type: Array as PropType<string[]>, default: () => []},
+@Component
+export default class Status extends Vue {
 
-    label: {type: String as PropType<string>, default: ''},
+  @Prop({type: Array, default: () => []})
+  readonly errors!: string[];
 
-    entry: {type: String as PropType<string>, default: ''},
+  @Prop({type: String, default: ''})
+  readonly label!: string;
 
-    max: {type: Number as PropType<number>,  default: -1}
-  },
+  @Prop({type: String, default: ''})
+  readonly entry!: string;
 
-  data() {
-    return {
-      shownAt: 0.8
-    }
-  },
+  @Prop({type: Number,  default: -1})
+  readonly max!: number;
 
-  computed: {
-    length(): number {
-      return this.entry.length;
-    },
+  private shownAt = 0.8;
 
-    counter(): string {
-      return this.max > 0 ? 
-        `${this.length}/${this.max}` : `${this.length}`;
-    },
-
-    shown(): boolean {
-      if (this.max < 0)
-        return true;
-
-      if (this.length / this.max > this.shownAt)
-        return true;
-
-      return false;
-    },
-
-    title(): string {
-      if (this.errors.length)
-        return this.errors[0];
-
-      return this.label;
-    },
+  get length(): number {
+    return this.entry.length;
   }
-})
+
+  get counter(): string {
+    return this.max > 0 ? 
+      `${this.length}/${this.max}` : `${this.length}`;
+  }
+
+  get shown(): boolean {
+    if (this.max < 0)
+      return true;
+
+    if (this.length / this.max > this.shownAt)
+      return true;
+
+    return false;
+  }
+
+  get title(): string {
+    if (this.errors.length)
+      return this.errors[0];
+
+    return this.label;
+  }
+}
 </script>

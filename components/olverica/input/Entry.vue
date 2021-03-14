@@ -13,66 +13,65 @@
 </template>
 
 <script lang="ts">
-import Vue, {PropType} from 'vue'
+import {Component, Prop} from 'vue-property-decorator'
+import Vue from 'vue'
 
-export default Vue.extend({
-  props: {
-    focused: {type: Boolean as PropType<boolean>, default: false},
+@Component
+export default class Entry extends Vue {
 
-    hidden: {type: Boolean as PropType<boolean>, default: false},
+  @Prop({type: Boolean , default: false})
+  readonly focused!: boolean; 
 
-    entry: {type: String as PropType<string>, default: ''},
-
-    type: {type: String as PropType<string>, default: 'text'},
-  },
+  @Prop({type: Boolean, default: false})
+  readonly  hidden!: boolean;
   
-  data() {
-    return { 
-      blurTimeout:  null as NodeJS.Timeout|null,
-      blurDelay: 200
-    }
-  },
+  @Prop({type: String, default: 'text'})
+  readonly type!: string;
 
-  computed: {
-    inputType(): string {
-      return this.hidden ? 'password' : this.type;
-    }
-  },
+  @Prop({type: String, default: ''})
+  readonly entry!: string;
 
-  methods: {
-    preventBluring(): void {
-      if (this.blurTimeout === null)
-        return;
-        
-      clearTimeout(this.blurTimeout);
-      this.blurTimeout = null;
-    },
 
-    onfocus(): void {
-      this.preventBluring();
-      this.$emit('update:focused', true);
-    },
+  private blurTimeout: NodeJS.Timeout|null = null;
 
-    onblur(): void {
-      this.preventBluring();
-      this.$emit('validate');
-        
-      this.blurTimeout = setTimeout(() => 
-        this.$emit('update:focused', false), this.blurDelay);
-    },
+  private blurDelay = 200;
 
-    oninput(event: InputEvent): void {
-      let value = '';
-
-      if (event.target instanceof HTMLInputElement)
-        value = event.target.value;
-
-      this.$emit('update:entry', value);
-    },
-
-    submit(): void {
-      this.$emit('submit');
-    } 
+  get inputType(): string {
+    return this.hidden ? 'password' : this.type;
   }
-})
+
+  preventBluring(): void {
+    if (this.blurTimeout === null)
+      return;
+      
+    clearTimeout(this.blurTimeout);
+    this.blurTimeout = null;
+  }
+
+  onfocus(): void {
+    this.preventBluring();
+    this.$emit('update:focused', true);
+  }
+
+  onblur(): void {
+    this.preventBluring();
+    this.$emit('validate');
+      
+    this.blurTimeout = setTimeout(() => 
+      this.$emit('update:focused', false), this.blurDelay);
+  }
+
+  oninput(event: InputEvent): void {
+    let value = '';
+
+    if (event.target instanceof HTMLInputElement)
+      value = event.target.value;
+
+    this.$emit('update:entry', value);
+  }
+
+  submit(): void {
+    this.$emit('submit');
+  } 
+}
 </script>

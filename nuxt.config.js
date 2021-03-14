@@ -26,6 +26,10 @@ export default {
   plugins: [
   ],
 
+  babel: {
+    plugins: ['transform-decorators-legacy', 'transform-class-properties']
+  },
+
   server: {
     host: '0.0.0.0'
   },

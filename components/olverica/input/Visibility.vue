@@ -11,23 +11,21 @@
 </template>
 
 <script lang="ts">
+import {Component, Prop} from 'vue-property-decorator'
 import Vue from 'vue'
 
-export default Vue.extend({
-  props: {
-    value: { type: Boolean, default: false}
-  },
+@Component
+export default class Visibility extends Vue {
+  
+  @Prop({type: Boolean, default: false})  
+  readonly value!: boolean
 
-  computed: {
-    icon(): string {
-      return this.value ? 'remove_red_eye' : 'visibility_off';
-    }
-  },
-
-  methods: {
-    toggle(event: any) {
-      this.$emit('input', !this.value);
-    }
+  get icon(): string {
+    return this.value ? 'remove_red_eye' : 'visibility_off';
   }
-})
+
+  toggle(event: any) {
+    this.$emit('input', !this.value);
+  }
+}
 </script>

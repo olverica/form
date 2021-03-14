@@ -16,9 +16,7 @@ export interface Data {
 }
 
 export interface Form {
-    fields: Field[];
-
-    submit(): boolean;
+    submit(): void;
     detach(el: Field): void;
     register(el: Field): void;
 }
@@ -27,7 +25,6 @@ export function isForm(form: unknown): form is Form {
     return typeof form === 'object' 
         && form !== null
         && 'dirty' in form
-        && 'fields' in form 
         && 'submit' in form
         && 'detach' in form
         && 'register' in form

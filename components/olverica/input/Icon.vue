@@ -5,11 +5,12 @@
 </template>
 
 <script lang="ts">
-import Vue, {PropType} from 'vue'
+import {Component, Prop} from 'vue-property-decorator'
+import Vue from 'vue'
 
-export default Vue.extend({
-  props: {
-    type: {type: String as PropType<string>, default: ''}
-  }
-})
+@Component
+export default class Icon extends Vue {
+  @Prop({type: String, default: ''})
+  readonly type!: string;
+}
 </script>

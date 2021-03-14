@@ -33,120 +33,122 @@
 </template>
 
 <script lang="ts">
-import Vue, {PropType} from 'vue'
-import {Max, Min} from '~/services/Rules';
+import {Field, Form, Rule, Validation, isForm} from '~/services/types' 
+import {Component, Inject, Prop} from 'vue-property-decorator'
 import {Validator} from '~/services/Validator';
-import {Form, Rule, Validation, isForm} from '~/services/types' 
+import {Max, Min} from '~/services/Rules';
+import Vue from 'vue'
 
-
-export default Vue.extend({
+@Component
+export default class OlvericInput extends Vue implements Field{
   
-  inject: {
-    $form: {default: undefined}
-  },
+  @Inject()
+  readonly $form!: Form|null;
 
-  props: {
-    countable: {type: Boolean as PropType<boolean>, default: true},
+  @Prop({type: Boolean, default: true})
+  readonly countable!: boolean;
 
-    hideable: {type: Boolean as PropType<boolean>, default: true},
+  @Prop({type: Boolean, default: true})
+  readonly hideable!: boolean;
 
-    rules: {type: Array as PropType<Rule[]>, default: () => []},
+  @Prop({type: Array, default: () => []})
+  readonly rules!: Rule[];
 
-    placeholder: {type: String as PropType<string>, default: 'placeholder'},
-    
-    default: {type: String as PropType<string>, default: ''},
+  @Prop({type: String, default: ''})
+  readonly placeholder!: string;
+  
+  @Prop({type: String, default: ''})
+  readonly default!: string;
 
-    title: {type: String as PropType<string>, default: 'Title'},
+  @Prop({type: String, default: 'Title'})
+  readonly title!: string;
 
-    type: {type: String as PropType<string>, default: 'email'},
+  @Prop({type: String, default: ''})
+  readonly type!: string;
 
-    name: {type: String as PropType<string>, default: 'field'},
+  @Prop({type: String, default: 'field'})
+  readonly name!: string;
 
-    icon: {type: String as PropType<string>, default: ''},
-  },
+  @Prop({type: String, default: ''})
+  readonly icon!: string;
 
-  data() {
-    return {
-      validator: new Validator(),
-      focused: false,
-      hidden: false,
-      entry: '',
-    }
-  },
+  private validator = new Validator();
+  
+  private focused = false;
 
-  computed: {
-    form(): Form|null {
-      let form = (this as any).$form;
-      return isForm(form) ? form : null;
-    },
+  private hidden = false;
 
-    active(): boolean {
-      return this.focused || Boolean(this.entry.length);
-    },
+  private entry = '';
 
-    failed(): boolean {
-      return this.validator.state === Validation.Failed;
-    },
+  get form(): Form|null {
+    let form = (this as any).$form;
+    return isForm(form) ? form : null;
+  }
 
-    passed(): boolean {
-      return this.validator.state === Validation.Passed;
-    },
+  get active(): boolean {
+    return this.focused || Boolean(this.entry.length);
+  }
 
-    errors(): string[] {
-      return this.validator.errors;
-    },
+  get failed(): boolean {
+    return this.validator.state === Validation.Failed;
+  }
 
-    warnings(): string[] {
-      return this.validator.warnings;
-    },
-  },
+  get passed(): boolean {
+    return this.validator.state === Validation.Passed;
+  }
+
+  get errors(): string[] {
+    return this.validator.errors;
+  }
+
+  get warnings(): string[] {
+    return this.validator.warnings;
+  }
 
   mounted() {
     this.entry = this.default;
 
     this.restrict();
     this.register();
-  },
-
-  methods: {
-    focus(): void {
-      let el = this.$el.querySelector('input')
-      el?.focus();
-    },
-
-    restrict() {
-      this.validator.rules =  [
-        new Max(4), new Min(2)
-      ];
-    },
-
-    register() {
-      this.form?.register(this);
-    },
-
-    valuable(): boolean {
-      return Boolean(this.entry.length)
-    },
-
-    compute(): string {
-      return this.entry;
-    },
-
-    dirty(): boolean {
-      return this.default !== this.entry;
-    },
-
-    validate(): boolean {
-      let validated = this.validator.check(this.entry);
-
-      return validated === Validation.Passed 
-        ? true : false
-    },
-
-    check() {
-      return this.entry.length ? 
-        this.validate(): this.validator.clear();
-    },
   }
-})
+
+  focus(): void {
+    let el = this.$el.querySelector('input')
+    el?.focus();
+  }
+
+  restrict() {
+    this.validator.rules =  [
+      new Max(4), new Min(2)
+    ];
+  }
+
+  register() {
+    this.form?.register(this);
+  }
+
+  valuable(): boolean {
+    return Boolean(this.entry.length)
+  }
+
+  compute(): string {
+    return this.entry;
+  }
+
+  dirty(): boolean {
+    return this.default !== this.entry;
+  }
+
+  validate(): boolean {
+    let validated = this.validator.check(this.entry);
+
+    return validated === Validation.Passed 
+      ? true : false
+  }
+
+  check() {
+    return this.entry.length ? 
+      this.validate(): this.validator.clear();
+  }
+}
 </script>

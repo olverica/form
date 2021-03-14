@@ -30,25 +30,23 @@
 <script lang="ts">
 import Vue from 'vue'
 import {Data} from 'services/types'
+import {Component} from 'vue-property-decorator'
 
-export default Vue.extend({
-  data() {
-    return {
-      value: null as any
-    }
-  },
+@Component
+export default class IndexLayout extends Vue {
+  
+  private value: any = null;
 
-  methods: {
-    request(data: Data, error: () => void) {
-      let parsed = '';
+  private request(data: Data, error: () => void) {
+    let parsed = '';
 
-      for (let [key, value] of Object.entries(data))
-        parsed += `'${key}': ${value}\n`;
+    for (let [key, value] of Object.entries(data))
+      parsed += `'${key}': ${value}\n`;
 
-      this.value = parsed;
-    }
+    this.value = parsed;
   }
-})
+}
+
 </script>
 
 <style lang="sass" scoped>

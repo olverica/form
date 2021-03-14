@@ -12,63 +12,56 @@
 
 
 <script lang="ts">
-import Vue, {PropType} from 'vue'
-import {Form, isForm} from '~/services/types' 
+import {Component, Inject, Prop} from 'vue-property-decorator'
+import {Form, isForm} from '~/services/types'
+import Vue from 'vue'
 
-
-export default Vue.extend({
+@Component
+export default class OlvericaSwitch extends Vue {
   
-  inject: {
-    $form: {default: undefined}
-  },
+  @Inject() 
+  readonly $form!: Form|null;
 
-  props: {
-    default: {type: Boolean as PropType<boolean>, default: false},
-    
-    label: {type: String as PropType<string>, default: 'switch me!'},
+  @Prop({type: Boolean, default: false})
+  readonly default!: boolean; 
 
-    name: {type: String as PropType<string>, default: 'switch'},
-  },
+  @Prop({type: String, default: 'switch me!'}) 
+  readonly label!: boolean; 
 
-  data() {
-    return {
-      active: false
-    }
-  },
+  @Prop({type: Boolean, default: false})
+  readonly name!: 'switch'; 
 
-  computed: {
-    form(): Form|null {
-      let form = (this as any).$form;
-      return isForm(form) ? form : null;
-    }
-  },
+  private active: boolean = false;
+
+  get form(): Form|null {
+    let form = (this as any).$form;
+    return isForm(form) ? form : null;
+  }
 
   mounted() {
     this.active = this.default;
 
     this.register();
-  },
-
-  methods: {
-    register() {
-      this.form?.register(this);
-    },
-
-    valuable(): boolean {
-      return true;
-    },
-
-    compute(): boolean {
-      return this.active;
-    },
-
-    dirty(): boolean {
-      return this.default !== this.active;
-    },
-
-    toggle() {
-      this.active = !!!this.active;
-    },
   }
-})
+
+  register() {
+    this.form?.register(this);
+  }
+
+  valuable(): boolean {
+    return true;
+  }
+
+  compute(): boolean {
+    return this.active;
+  }
+
+  dirty(): boolean {
+    return this.default !== this.active;
+  }
+
+  toggle() {
+    this.active = !!!this.active;
+  }
+}
 </script>
