@@ -1,6 +1,10 @@
 <template>
   <button
-    class="ol-field__button ol-field__button--shown"
+    class="ol-field__button"
+    :class="{
+      'ol-field__button--shown': value,
+      'ol-field__button--hidden': !!!value}"
+      
     type="button"
     @click="toggle">
   </button>

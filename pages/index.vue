@@ -22,9 +22,7 @@
 
     </olverica-form>
 
-    <code>
-      {{ value }}
-    </code>
+    <code>{{ value }}</code>
 
   </main>
 </template>
@@ -42,7 +40,12 @@ export default Vue.extend({
 
   methods: {
     request(data: Data, error: () => void) {
-      this.value = JSON.stringify(data);
+      let parsed = '';
+
+      for (let [key, value] of Object.entries(data))
+        parsed += `'${key}': ${value}\n`;
+
+      this.value = parsed;
     }
   }
 })
@@ -61,6 +64,6 @@ code
   width: 100%
   min-height: 100%
   background: white
-  word-break: break-all
+  white-space: pre
 
 </style>
