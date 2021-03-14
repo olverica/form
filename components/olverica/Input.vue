@@ -1,6 +1,6 @@
 <template>
   <fieldset 
-    class="ol-field ol-field--input"
+    class="ol-field-defaults ol-field ol-field--input"
     :class="{
       'ol-field--focused': focused,
       'ol-field--active': active, 
