@@ -35,20 +35,20 @@ export function isForm(form: unknown): form is Form {
 
 export interface Validatable {
     validate(): Validation;
+    focus(): void;
 }
 
 export function isValidatable(field: unknown): field is Validatable {
     return typeof field === 'object' 
         && field !== null
+        && 'focus' in field
         && 'validate' in field;
 }
 
 export interface Field {
     name: string;
 
-    validate(): boolean;
     valuable(): boolean;
     compute(): unknown;
     dirty(): boolean;
-    focus(): void;
 }

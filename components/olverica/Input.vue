@@ -67,13 +67,10 @@ export default Vue.extend({
 
   data() {
     return {
-      entry: '',
-
-      config: null,
       validator: new Validator(),
-
-      hidden: false,
       focused: false,
+      hidden: false,
+      entry: '',
     }
   },
 
