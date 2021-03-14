@@ -8,7 +8,8 @@
 
     @blur="onblur"
     @focus="onfocus"
-    @input="oninput">
+    @input="oninput"
+    @keyup.enter.stop="submit">
 </template>
 
 <script lang="ts">
@@ -67,7 +68,11 @@ export default Vue.extend({
         value = event.target.value;
 
       this.$emit('update:entry', value);
-    }
+    },
+
+    submit(): void {
+      this.$emit('submit');
+    } 
   }
 })
 </script>

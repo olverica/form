@@ -53,6 +53,4 @@ code
   background: white
   word-break: break-all
 
-
-
 </style>

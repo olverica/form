@@ -1,6 +1,7 @@
 <template>
   <button
     class="ol-field__button ol-field__button--shown"
+    type="button"
     @click="toggle">
   </button>
 </template>
@@ -20,7 +21,7 @@ export default Vue.extend({
   },
 
   methods: {
-    toggle() {
+    toggle(event: any) {
       this.$emit('input', !this.value);
     }
   }
