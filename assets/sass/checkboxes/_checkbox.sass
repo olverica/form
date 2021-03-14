@@ -1,0 +1,59 @@
+// .ol-checkbox
+//   height: 10px
+$checkbox-size: 40px
+$outline-size: 4px
+$outline-color: #cdd0cb
+$filled-color: #00af91
+$icon-color: #e5e5e5
+$icon-size: 1em
+
+.ol
+  display: flex
+  align-items: center
+  gap: 10px
+
+.ol-checkbox__title
+  font-size: 1.4em
+  font-weight: 500
+  color: #141414
+
+.ol-checkbox
+  position: relative
+  // animation
+  transition: box-shadow .3s ease-in-out
+
+  &::before
+    // position
+    position: absolute
+    top: 50%
+    left: 50%
+    transform: translate(-50%,-50%)
+    // animation
+    opacity: 0
+    transition: opacity .2s
+
+
+// checkbox customization
+.ol-checkbox
+  width: $checkbox-size
+  height: $checkbox-size
+  font-size: 2em
+  border-radius: 10px
+  box-shadow: inset 0 0 0 $outline-size $outline-color
+
+// icon customization
+.ol-checkbox
+  &::before
+    content: "done"
+    font-family: "material icons"
+    color: $icon-color
+    font-size: $icon-size
+
+// state
+
+.ol-checkbox--checked
+  box-shadow: inset 0 0 0 $checkbox-size $filled-color
+
+  &::before
+    opacity: 1
+

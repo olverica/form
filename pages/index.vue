@@ -16,6 +16,16 @@
       {{ value }}
     </code>
 
+    <div class="ol">
+      <button class="ol-checkbox ol-checkbox--checked"></button>
+      <label class="ol-checkbox__title">check me!</label>
+    </div>
+
+    <div class="ol">
+      <button class="ol-switch ol-switch--active"></button>
+      <label class="ol-checkbox__title">switch me!</label>
+    </div>
+
   </main>
 </template>
 
