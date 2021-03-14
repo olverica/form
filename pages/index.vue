@@ -2,7 +2,6 @@
   <main>
     <olverica-form>
       <olverica-input/>
-
       <olverica-submit-button/>
     </olverica-form>
 

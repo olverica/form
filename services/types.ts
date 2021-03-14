@@ -51,6 +51,7 @@ export interface Field {
     name: string;
 
     validate(): boolean;
+    valuable(): boolean;
     compute(): unknown;
     dirty(): boolean;
     focus(): void;

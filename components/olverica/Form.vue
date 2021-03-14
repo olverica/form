@@ -34,7 +34,7 @@ export default Vue.extend({
 
     register(field: Field): void {
       if (this.contains(field))
-        throw Error(`Field with name ${field.name} has been already registered`)
+        throw Error(`Field with name ${field.name} has already been registered`)
       
       this.fields.push(field);
     },
@@ -56,6 +56,10 @@ export default Vue.extend({
       return false;
     },
 
+    handleError(): void {
+      
+    },
+
     validate(): boolean {
       let validated = false;
 
@@ -69,14 +73,33 @@ export default Vue.extend({
 
       return validated;
     },
+    
+
+    collect(): Map<string, unknown> {
+      let data = new Map<string, unknown>();
+
+      for (let field of this.fields) {
+        if (!!!field.valuable())
+          continue;
+
+        let name = field.name;
+        if (data.has(name))
+          throw Error(`Value with name ${name} has already been added`)   
+
+        let value = field.compute();
+        data.set(name, value);
+      }
+
+      return data;
+    },
 
     submit(): void {
-      console.log(123);
-
       if (!!!this.validate())
         return;
-      
-      this.$emit('submit');
+
+      let data = this.collect();
+
+      this.$emit('submit', data, this.handleError);
     },
   }
 })

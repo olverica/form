@@ -127,8 +127,12 @@ export default Vue.extend({
       this.form?.register(this);
     },
 
+    valuable(): boolean {
+      return Boolean(this.entry.length)
+    },
+
     compute(): string {
-      return this.entry
+      return this.entry;
     },
 
     dirty(): boolean {
