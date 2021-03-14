@@ -21,7 +21,6 @@ export interface Request {
 
 export interface Form {
     fields: Field[];
-    request: Request | null;
 
     submit(): boolean;
     detach(el: Field): void;
@@ -35,14 +34,23 @@ export function isForm(form: unknown): form is Form {
         && 'fields' in form 
         && 'submit' in form
         && 'detach' in form
-        && 'request' in form
         && 'register' in form
+}
+
+export interface Validatable {
+    validate(): Validation;
+}
+
+export function isValidatable(field: unknown): field is Validatable {
+    return typeof field === 'object' 
+        && field !== null
+        && 'validate' in field;
 }
 
 export interface Field {
     name: string;
 
-    validate(): Validation;
+    validate(): boolean;
     compute(): unknown;
     dirty(): boolean;
     focus(): void;

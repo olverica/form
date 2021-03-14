@@ -1,6 +1,6 @@
 <template>
-  <button style="width: 100%; height: 20px">
-    Confirm
+  <button @click="submit">
+    C O N F I R M
   </button>
 </template>
 
@@ -22,8 +22,22 @@ export default Vue.extend({
 
   methods: {
     submit() {
+      console.log(123);
+
       this.form?.submit();
     }
   }
 })
 </script>
+
+<style lang="sass" scoped>
+
+button
+  width: 100%
+  height: 60px
+  font-size: 20px
+  border-radius: 20px
+  background: #635f5f
+  color: white 
+
+</style>

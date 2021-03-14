@@ -135,8 +135,11 @@ export default Vue.extend({
       return this.default !== this.entry;
     },
 
-    validate(): Validation {
-      return this.validator.check(this.entry);
+    validate(): boolean {
+      let validated = this.validator.check(this.entry);
+
+      return validated === Validation.Passed 
+        ? true : false
     },
 
     check() {

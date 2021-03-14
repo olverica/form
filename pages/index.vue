@@ -2,6 +2,8 @@
   <main>
     <olverica-form>
       <olverica-input/>
+
+      <olverica-submit-button/>
     </olverica-form>
 
     <fieldset class="ol-field ol-field--textarea">

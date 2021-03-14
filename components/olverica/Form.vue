@@ -6,13 +6,9 @@
 
 <script lang="ts">
 import Vue, {PropType} from 'vue'
-import {Field, Request} from '@/services/types'
+import {Field, Request, isValidatable, Validation} from '@/services/types'
 
 export default Vue.extend({
-  
-  props: {
-    request: {type: Function as PropType<Request|null>, default: null},
-  },
 
   data () {
     return {
@@ -61,12 +57,35 @@ export default Vue.extend({
     },
 
     validate(): boolean {
-      return false;
+      let validated = false;
+
+      for (let field of this.fields) {
+        if (!!!isValidatable(field)) 
+          continue
+
+        if (!!!field.validate())
+          validated = false;
+      }
+
+      return validated;
     },
 
     submit(): void {
+      console.log(123);
 
+      if (!!!this.validate())
+        return;
+      
+      this.$emit('submit');
     },
   }
 })
 </script>
+
+<style lang="sass" scoped> 
+  
+  form
+    display: grid
+    gap: 20px
+
+</style>
