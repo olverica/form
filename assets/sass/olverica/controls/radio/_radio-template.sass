@@ -1,0 +1,47 @@
+// ----------------------------------------------------------
+// copy this code and rename the class to set your own styles
+// ----------------------------------------------------------
+
+.ol-radio-defaults
+  gap: 20px
+  // ===========================
+  // variables for default state
+  // ===========================
+  $radio-size: 40px
+  $radio-background: #fff
+  $radio-border: 2px solid #d7d6d7
+  $radio-radius: 100%
+  $radio-transition: border .2s
+  //
+  $radio-dot-radius: 100%
+  $radio-dot-transition: height .1s, width .1s
+  // ==========================
+  // variables for active state
+  // ==========================
+  $active-radio-color: #2065d1
+  $active-radio-border: 2px solid $active-radio-color
+  // 
+  $active-radio-dot-gap: 20px
+  // ===================
+  // radio default state
+  // ===================
+  .ol-controls__radio
+    width: $radio-size
+    height: $radio-size
+    background: $radio-background
+    border: $radio-border
+    border-radius: $radio-radius
+    transition: $radio-transition
+    // 
+    &::before
+      border-radius: $radio-dot-radius
+      background: $active-radio-color
+      transition: $radio-dot-transition
+  // ==================
+  // radio active state
+  // ==================
+  .ol-controls__radio--active
+    border: $active-radio-border
+    &::before
+      height: $radio-size - $active-radio-dot-gap
+      width: $radio-size - $active-radio-dot-gap 

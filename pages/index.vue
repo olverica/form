@@ -6,13 +6,17 @@
       <olverica-input/>
 
       <fieldset class="ol-field ol-field--textarea">
-        <label class="ol-field__title">Comment<span class="ol-field__counter">0/180</span></label>
+        <label class="ol-field__title">
+          Title
+          <span class="ol-field__counter ol-field__counter--show">110/180</span>
+        </label>
       </fieldset>
-
 
       <olverica-radio-button/>
 
       <olverica-checkbox/>
+
+      <olverica-switch/>
 
       <olverica-submit-button/>
 

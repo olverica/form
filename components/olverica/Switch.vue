@@ -1,8 +1,8 @@
 <template>
-  <fieldset class="ol-radio-defaults ol-controls">
+  <fieldset class="ol-switch-defaults ol-controls">
     <button 
-      class="ol-controls__radio"
-      :class="{'ol-controls__radio--active': active}"
+      class="ol-controls__switch"
+      :class="{'ol-controls__switch--active': active}"
       @click="toggle">
     </button>
 
@@ -25,9 +25,9 @@ export default Vue.extend({
   props: {
     default: {type: Boolean as PropType<boolean>, default: false},
     
-    label: {type: String as PropType<string>, default: 'choose me!'},
+    label: {type: String as PropType<string>, default: 'switch me!'},
 
-    name: {type: String as PropType<string>, default: 'radio'},
+    name: {type: String as PropType<string>, default: 'switch'},
   },
 
   data() {

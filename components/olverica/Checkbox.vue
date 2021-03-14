@@ -1,13 +1,13 @@
 <template>
-  <div class="ol">
+  <fieldset class="ol-checkbox-defaults ol-controls">
     <button 
-      class="ol-checkbox"
-      :class="{'ol-checkbox--checked': active}"
+      class="ol-controls__checkbox"
+      :class="{'ol-controls__checkbox--active': active}"
       @click="toggle">
     </button>
 
-    <label class="ol-checkbox__title">{{ label }}</label>
-  </div>
+    <label class="ol-controls__title">{{ label }}</label>
+  </fieldset>
 </template>
 
 
@@ -25,7 +25,7 @@ export default Vue.extend({
   props: {
     default: {type: Boolean as PropType<boolean>, default: false},
     
-    label: {type: String as PropType<string>, default: 'switch me!'},
+    label: {type: String as PropType<string>, default: 'check me!'},
 
     name: {type: String as PropType<string>, default: 'checkbox'},
   },

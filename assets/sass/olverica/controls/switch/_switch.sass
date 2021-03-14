@@ -1,0 +1,13 @@
+.ol-controls__switch 
+  position: relative
+  // 
+  &::before
+    content: ""
+    left: 0
+    top: 0
+    border-radius: 100% 
+    position: absolute
+
+.ol-controls__switch--active
+  &::before
+    left: 50%
