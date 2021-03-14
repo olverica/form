@@ -22,8 +22,6 @@ export default Vue.extend({
 
   methods: {
     submit() {
-      console.log(123);
-
       this.form?.submit();
     }
   }

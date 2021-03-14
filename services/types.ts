@@ -12,11 +12,7 @@ export interface Rule {
 }
 
 export interface Data {
-    [key: string] : unknown;
-}
-
-export interface Request {
-    (data: Data) : void;
+    [key: string]: unknown;
 }
 
 export interface Form {

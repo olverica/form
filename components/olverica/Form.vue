@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import Vue, {PropType} from 'vue'
-import {Field, Request, isValidatable, Validation} from '@/services/types'
+import {Data, Field, isValidatable} from '@/services/types'
 
 export default Vue.extend({
 
@@ -61,7 +61,7 @@ export default Vue.extend({
     },
 
     validate(): boolean {
-      let validated = false;
+      let validated = true;
 
       for (let field of this.fields) {
         if (!!!isValidatable(field)) 
@@ -70,24 +70,24 @@ export default Vue.extend({
         if (!!!field.validate())
           validated = false;
       }
-
+  
       return validated;
     },
     
 
-    collect(): Map<string, unknown> {
-      let data = new Map<string, unknown>();
+    collect(): Data {
+      let data: Data = {};
 
       for (let field of this.fields) {
         if (!!!field.valuable())
           continue;
 
         let name = field.name;
-        if (data.has(name))
+        if (data[name])
           throw Error(`Value with name ${name} has already been added`)   
 
         let value = field.compute();
-        data.set(name, value);
+        data[name] = value;
       }
 
       return data;
