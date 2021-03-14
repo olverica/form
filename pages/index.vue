@@ -5,7 +5,7 @@
 
       <olverica-input/>
 
-      <fieldset class="ol-field ol-field--textarea">
+      <fieldset class="ol-field-defaults ol-field ol-field--textarea">
         <label class="ol-field__title">
           Title
           <span class="ol-field__counter ol-field__counter--show">110/180</span>
@@ -19,6 +19,18 @@
       <olverica-switch/>
 
       <olverica-submit-button/>
+
+      <fieldset class="ol-field-defaults ol-field ol-field--select ol-field--active">
+        <label class="ol-field__select_title">Select your option</label>
+        <div class="ol-field__select_body">
+          <span class="ol-field__select_option ol-field__select_option--selected">option L</span>
+          <span class="ol-field__select_option">option G</span>
+          <span class="ol-field__select_option">option B</span>
+          <span class="ol-field__select_option">option T</span>
+          <span class="ol-field__select_option">option Q</span>
+          <span class="ol-field__select_option">option +</span>
+        </div>
+      </fieldset>
 
     </olverica-form>
 
