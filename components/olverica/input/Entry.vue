@@ -3,8 +3,9 @@
     ref="input"
     class="ol-field__input" 
 
-    :value="entry"
+    :maxlength="maxlength"
     :type="inputType"
+    :value="entry"
 
     @blur="onblur"
     @focus="onfocus"
@@ -30,6 +31,9 @@ export default class Entry extends Vue {
 
   @Prop({type: String, default: ''})
   readonly entry!: string;
+  
+  @Prop({type: Number,  default: null})
+  readonly maxlength!: number|null;
 
 
   private blurTimeout: NodeJS.Timeout|null = null;

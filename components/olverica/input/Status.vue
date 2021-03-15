@@ -4,7 +4,7 @@
 
     <span 
       class="ol-field__counter"
-      :class="{'ol-field__counter--show': shown}">
+      :class="{'ol-field__counter--shown': shown}">
 
       {{ counter }}
     </span>
@@ -28,24 +28,21 @@ export default class Status extends Vue {
   readonly entry!: string;
 
   @Prop({type: Number,  default: -1})
-  readonly max!: number;
+  readonly maxlength!: number;
 
-  private shownAt = 0.8;
+  private shownAt = 0.7;
 
   get length(): number {
     return this.entry.length;
   }
 
   get counter(): string {
-    return this.max > 0 ? 
-      `${this.length}/${this.max}` : `${this.length}`;
+    return this.maxlength > 0 ? 
+      `${this.length}/${this.maxlength}` : `${this.length}`;
   }
 
   get shown(): boolean {
-    if (this.max < 0)
-      return true;
-
-    if (this.length / this.max > this.shownAt)
+    if (this.length / this.maxlength > this.shownAt)
       return true;
 
     return false;

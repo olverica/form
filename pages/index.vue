@@ -3,7 +3,8 @@
     <olverica-form
       @submit="request">
 
-      <olverica-input/>
+      <olverica-input
+        :maxlength="12"/>
 
       <fieldset class="ol-field-defaults ol-field ol-field--textarea">
         <label class="ol-field__title">
@@ -46,7 +47,7 @@ import {Component} from 'vue-property-decorator'
 
 @Component
 export default class IndexLayout extends Vue {
-  
+
   private value: any = null;
 
   private request(data: Data, error: () => void) {

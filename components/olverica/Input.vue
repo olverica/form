@@ -13,14 +13,17 @@
 
     <div class="ol-field__wrapper">
       <olverica-input-status
+        :maxlength="maxlength"
         :countable="countable"
-        :label="title"
-        :errors="errors"/>
+        :entry="entry"
+        :errors="errors"
+        :label="title"/>
 
       <olverica-input-entry
         :focused.sync="focused"
         :entry.sync="entry"
         :placeholder="placeholder"
+        :maxlength="maxlength"
         :hidden="hidden"
         @validate="check"/>
     </div>
@@ -36,7 +39,7 @@
 import {Field, Form, Rule, Validation, isForm} from '~/services/types' 
 import {Component, Inject, Prop} from 'vue-property-decorator'
 import {Validator} from '~/services/Validator';
-import {Max, Min} from '~/services/Rules';
+import {Min} from '~/services/Rules';
 import Vue from 'vue'
 
 @Component
@@ -45,14 +48,17 @@ export default class OlvericInput extends Vue implements Field{
   @Inject()
   readonly $form!: Form|null;
 
+  @Prop({type: Number, default: null})
+  readonly maxlength!: number|null;
+
+  @Prop({type: Array, default: () => []})
+  readonly rules!: Rule[];
+
   @Prop({type: Boolean, default: true})
   readonly countable!: boolean;
 
   @Prop({type: Boolean, default: true})
   readonly hideable!: boolean;
-
-  @Prop({type: Array, default: () => []})
-  readonly rules!: Rule[];
 
   @Prop({type: String, default: ''})
   readonly placeholder!: string;
@@ -119,7 +125,7 @@ export default class OlvericInput extends Vue implements Field{
 
   restrict() {
     this.validator.rules =  [
-      new Max(4), new Min(2)
+      new Min(2)
     ];
   }
 
