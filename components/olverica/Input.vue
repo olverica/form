@@ -36,14 +36,14 @@
 </template>
 
 <script lang="ts">
-import {Field, Form, Rule, Validation, isForm} from '~/services/types' 
+import {Rule, Field, Form,isForm, Validation, Validatable} from '~/services/types' 
 import {Component, Inject, Prop} from 'vue-property-decorator'
 import {Validator} from '~/services/Validator';
 import {Min} from '~/services/Rules';
 import Vue from 'vue'
 
 @Component
-export default class OlvericInput extends Vue implements Field{
+export default class OlvericInput extends Vue implements Field, Validatable{
   
   @Inject()
   readonly $form!: Form|null;
@@ -87,7 +87,7 @@ export default class OlvericInput extends Vue implements Field{
   private entry = '';
 
   get form(): Form|null {
-    let form = (this as any).$form;
+    let form = this.$form;
     return isForm(form) ? form : null;
   }
 

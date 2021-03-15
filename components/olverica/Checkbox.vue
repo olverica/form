@@ -14,11 +14,11 @@
 
 <script lang="ts">
 import {Component, Inject, Prop} from 'vue-property-decorator'
-import {Form, isForm} from '~/services/types'
+import {Field, Form, isForm} from '~/services/types'
 import Vue from 'vue'
 
 @Component
-export default class Checkbox extends Vue {
+export default class Checkbox extends Vue implements Field{
   
   @Inject() 
   readonly $form!: Form|null;
@@ -29,13 +29,13 @@ export default class Checkbox extends Vue {
   @Prop({type: String, default: 'check me!'})
   readonly label!: boolean; 
 
-  @Prop({type: Boolean, default: false})
-  readonly name!: 'checkbox'; 
+  @Prop({type: String, default: 'checkbox'})
+  readonly name!: string; 
 
   private active: boolean = false;
 
   get form(): Form|null {
-    let form = (this as any).$form;
+    let form = this.$form;
     return isForm(form) ? form : null;
   }
 

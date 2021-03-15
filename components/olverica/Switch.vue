@@ -13,11 +13,11 @@
 
 <script lang="ts">
 import {Component, Inject, Prop} from 'vue-property-decorator'
-import {Form, isForm} from '~/services/types'
+import {Field, Form, isForm} from '~/services/types'
 import Vue from 'vue'
 
 @Component
-export default class OlvericaSwitch extends Vue {
+export default class OlvericaSwitch extends Vue implements Field {
   
   @Inject() 
   readonly $form!: Form|null;
@@ -34,7 +34,7 @@ export default class OlvericaSwitch extends Vue {
   private active: boolean = false;
 
   get form(): Form|null {
-    let form = (this as any).$form;
+    let form = this.$form;
     return isForm(form) ? form : null;
   }
 

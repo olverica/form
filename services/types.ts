@@ -31,7 +31,7 @@ export function isForm(form: unknown): form is Form {
 }
 
 export interface Validatable {
-    validate(): Validation;
+    validate(): boolean;
     focus(): void;
 }
 

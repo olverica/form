@@ -13,11 +13,11 @@
 
 <script lang="ts">
 import {Component, Inject, Prop} from 'vue-property-decorator'
-import {Form, isForm} from '~/services/types'
+import {Field, Form, isForm} from '~/services/types'
 import Vue from 'vue'
 
 @Component
-export default class RadioButton extends Vue {
+export default class RadioButton extends Vue implements Field {
   
   @Inject() 
   readonly $form!: Form|null;
@@ -27,14 +27,14 @@ export default class RadioButton extends Vue {
 
   @Prop({type: String, default: 'choose me!'})
   readonly label!: boolean; 
-
-  @Prop({type: Boolean, default: false})
-  readonly name!: 'radio'; 
+  
+  @Prop({type: String, default: 'radio'})
+  readonly name!: string; 
 
   private active: boolean = false;
 
   get form(): Form|null {
-    let form = (this as any).$form;
+    let form = this.$form;
     return isForm(form) ? form : null;
   }
 
