@@ -36,9 +36,9 @@
 </template>
 
 <script lang="ts">
-import {Rule, Field, Form,isForm, Validation, Validatable} from '~/services/types' 
+import {Rule, Field, Form, isForm, Validatable} from '~/services/types' 
 import {Component, Inject, Prop} from 'vue-property-decorator'
-import {Validator} from '~/services/Validator';
+import {Validation, Validator} from '~/services/Validator';
 import {Min} from '~/services/Rules';
 import Vue from 'vue'
 

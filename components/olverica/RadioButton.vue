@@ -6,18 +6,19 @@
       @click="toggle">
     </button>
 
-    <label class="">{{ label }}</label>
+    <label class="">{{ title }}</label>
   </fieldset>
 </template>
 
 
 <script lang="ts">
 import {Component, Inject, Prop} from 'vue-property-decorator'
+import {Radio, RadioGroup} from '~/services/Radio'
 import {Field, Form, isForm} from '~/services/types'
 import Vue from 'vue'
 
 @Component
-export default class RadioButton extends Vue implements Field {
+export default class RadioButton extends Vue implements Radio {
   
   @Inject() 
   readonly $form!: Form|null;
@@ -26,12 +27,17 @@ export default class RadioButton extends Vue implements Field {
   readonly default!: boolean; 
 
   @Prop({type: String, default: 'choose me!'})
-  readonly label!: boolean; 
+  readonly title!: boolean; 
   
   @Prop({type: String, default: 'radio'})
   readonly name!: string; 
 
+  @Prop({default: true})
+  readonly value!: unknown
+
   private active: boolean = false;
+
+  private group: RadioGroup|null = null;
 
   get form(): Form|null {
     let form = this.$form;
@@ -44,24 +50,45 @@ export default class RadioButton extends Vue implements Field {
     this.register();
   }
 
-  register() {
-    this.form?.register(this);
+  disable() {
+    this.active = false;
   }
 
-  valuable(): boolean {
-    return true;
-  }
-
-  compute(): boolean {
-    return this.active;
-  }
-
-  dirty(): boolean {
-    return this.default !== this.active;
+  select() {
+    this.active = true;
   }
 
   toggle() {
-    this.active = !!!this.active;
+    if (!!!this.active)
+      this.group?.select(this);
+  }
+
+  compute(): unknown {
+    return this.value;
+  }
+
+  register() {
+    if (this.form === null)
+      return;
+      
+    let founded = this.form.find(this.name);
+    
+    // Creating new group
+    if (founded === null) {
+      this.group = new RadioGroup(this.name)
+      this.form.register(this.group);
+    }
+
+    // Appending to existed
+    else if (founded instanceof RadioGroup) {
+      this.group = founded;
+    }
+    
+    // Founded instance is not group so we cant append radio
+    else throw Error('Cant register the radio')
+
+
+    this.group!.append(this);
   }
 }
 </script>

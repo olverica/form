@@ -1,4 +1,4 @@
-import {Rule, MessagePusher} from '@/services/types'
+import {Rule, MessagePusher} from '~/services/types'
 
 export class Required implements Rule 
 {

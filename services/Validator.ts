@@ -1,4 +1,8 @@
-import {Rule, Validation} from '@/services/types'
+import {Rule} from '~/services/types'
+
+export enum Validation {
+    Passed, Failed, Unknown
+}
 
 export class Validator 
 {

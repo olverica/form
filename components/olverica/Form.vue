@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import {Data, Field,Form, isValidatable} from '@/services/types'
+import {Data, Field,Form, isValidatable} from '~/services/types'
 import Vue from 'vue'
 
 export default Vue.extend({
@@ -22,13 +22,17 @@ export default Vue.extend({
   },
 
   methods: {
-    contains(target: Field): boolean {
+    find(name: string): Field|null {
       for (let field of this.fields) {
-        if (field.name === target.name)
-          return true;
+        if (field.name === name)
+          return field;
       }
 
-      return false;
+      return null;
+    },
+
+    contains(target: Field): boolean {
+      return Boolean(this.find(target.name));
     },
 
     register(field: Field): void {

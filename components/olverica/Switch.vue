@@ -6,7 +6,7 @@
       @click="toggle">
     </button>
 
-    <label class="">{{ label }}</label>
+    <label class="">{{ title }}</label>
   </fieldset>
 </template>
 
@@ -26,10 +26,10 @@ export default class OlvericaSwitch extends Vue implements Field {
   readonly default!: boolean; 
 
   @Prop({type: String, default: 'switch me!'}) 
-  readonly label!: boolean; 
+  readonly title!: string;
 
-  @Prop({type: Boolean, default: false})
-  readonly name!: 'switch'; 
+  @Prop({type: Boolean, default: 'switch'})
+  readonly name!: string; 
 
   private active: boolean = false;
 

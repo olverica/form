@@ -1,8 +1,4 @@
 
-export enum Validation {
-    Passed, Failed, Unknown
-}
-
 export interface MessagePusher {
     (message: string): unknown
 }
@@ -19,6 +15,7 @@ export interface Form {
     submit(): void;
     detach(el: Field): void;
     register(el: Field): void;
+    find(name: string): Field; 
 }
 
 export function isForm(form: unknown): form is Form {

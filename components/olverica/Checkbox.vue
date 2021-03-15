@@ -6,7 +6,7 @@
       @click="toggle">
     </button>
 
-    <label class="ol-controls__title">{{ label }}</label>
+    <label class="ol-controls__title">{{ title }}</label>
   </fieldset>
 </template>
 
@@ -27,7 +27,7 @@ export default class Checkbox extends Vue implements Field{
   readonly default!: boolean; 
 
   @Prop({type: String, default: 'check me!'})
-  readonly label!: boolean; 
+  readonly title!: boolean; 
 
   @Prop({type: String, default: 'checkbox'})
   readonly name!: string; 

@@ -13,7 +13,17 @@
         </label>
       </fieldset>
 
-      <olverica-radio-button/>
+      <olverica-radio-button
+        :title="'Prop'"
+        :value="1"/>
+
+      <olverica-radio-button
+        :title="'Data'"
+        :value="2"/>
+
+      <olverica-radio-button
+        :title="'Meth'"
+        :value="3"/>
 
       <olverica-checkbox/>
 
