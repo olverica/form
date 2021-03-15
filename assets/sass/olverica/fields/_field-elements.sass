@@ -58,13 +58,16 @@
 .ol-field__select_option
   padding: 10px 10px
   border-radius: 10px
-  transition: background .3s
+  transition: background .3s, color .3s 
   // 
-  &:hover
-    background: #E5E5E5
-  // 
-  &--selected
-    background: #E5E5E5 !important
+  &:hover,&--selected 
+    background: #ebf0ff
+    color: #3057ce
+
+.ol-field__select_placeholder
+  padding: 10px 10px 
+  color: #C4C7CC
+  font-size: .9em
 
 .ol-field--active
   .ol-field__select_title

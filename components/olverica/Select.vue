@@ -12,6 +12,9 @@
       @mouseover="focus"
       @mouseleave="blur">
 
+      <span class="ol-field__select_placeholder">
+        select your option
+      </span>
       <span 
         v-for="({label}, index) of this.map"
         :key="index"

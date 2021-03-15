@@ -17,6 +17,11 @@ export default {
     ]
   },
 
+  // alias: {
+  //   "~": "",
+  //   "@": "assets/sass"
+  // },
+
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     '~assets/sass/style.sass'
