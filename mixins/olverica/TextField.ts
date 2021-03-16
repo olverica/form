@@ -26,6 +26,9 @@ export default class TextField extends Vue implements Field, Validatable{
     @Prop({type: String, default: 'field'})
     readonly name!: string;
 
+    @Prop({type: Boolean, default: false})
+    readonly optional!: string;
+
     protected validator = new Validator();
     
     protected focused = false;
@@ -77,11 +80,14 @@ export default class TextField extends Vue implements Field, Validatable{
     }
   
     valuable(): boolean {
-      return Boolean(this.entry.length)
+      if (this.optional && !!!this.entry.length)
+        return false;
+
+      return true
     }
   
     compute(): string {
-      return this.entry;
+      return this.entry
     }
   
     dirty(): boolean {
@@ -89,9 +95,10 @@ export default class TextField extends Vue implements Field, Validatable{
     }
   
     validate(): boolean {
-      let validated = this.validator.check(this.entry);
-  
-      return validated === Validation.Passed ? 
+      if (this.optional && !!!this.entry.length)
+        return true;
+
+      return this.validator.check(this.entry) === Validation.Passed ? 
         true : false
     }
   

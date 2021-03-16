@@ -60,6 +60,9 @@ export default class OlvericaSelect extends Vue implements Field, Validatable {
   @Prop({type: Number, default: -1})
   readonly default!: number;
 
+  @Prop({type: Boolean, default: false})
+  readonly optinal!: boolean;
+
   private selected = -1;
   
   private focused = false;
@@ -74,8 +77,7 @@ export default class OlvericaSelect extends Vue implements Field, Validatable {
   }
 
   get failed(): boolean {
-    return this.validated && 
-      (this.selected <= -1 || this.selected >= this.map.length);
+    return this.validated && !!!this.optinal && this.selected === -1;
   }
 
   get label(): string {
@@ -125,6 +127,9 @@ export default class OlvericaSelect extends Vue implements Field, Validatable {
   }
 
   valuable(): boolean {
+    if (this.optinal && this.selected === -1)
+      return false;
+
     return true;
   }
 

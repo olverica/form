@@ -4,10 +4,12 @@
       @submit="request">
 
       <olverica-input
-        :maxlength="12"/>
+        :maxlength="12"
+        optional/>
         
       <olverica-textarea
-        :maxlength="5"/>
+        :maxlength="5"
+        optional/>
 
       <olverica-radio
         :title="'Prop'"
@@ -52,6 +54,9 @@ export default class IndexLayout extends Vue {
     {label: 'I am senslessssssss', value: 2},
     {label: 'I am senslessssss', value: 3},
     {label: 'I am senslessss', value: 4},
+    {label: 'I am senslessssss', value: 3},
+    {label: 'I am senslessssssss', value: 2},
+    {label: 'I am senslessssssssss', value: 1}
   ]
 
   private request(data: Data, error: () => void) {
