@@ -5,15 +5,7 @@
 
       <olverica-input
         :maxlength="12"/>
-
-      <!-- <fieldset class="ol-field-defaults ol-field ol-field--textarea">
-        <label class="ol-field__title">
-          Title
-          <span class="ol-field__counter ol-field__counter--show">110/180</span>
-        </label>
-      </fieldset>
- -->
-
+        
       <olverica-textarea
         :maxlength="5"/>
 

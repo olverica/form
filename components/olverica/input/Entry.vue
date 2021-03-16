@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts">
-import {Component, Prop, Watch} from 'vue-property-decorator'
+import {Component, Prop} from 'vue-property-decorator'
 import Vue from 'vue'
 
 @Component
@@ -46,12 +46,6 @@ export default class Entry extends Vue {
   get input(): HTMLInputElement|null {
     return this.$el instanceof HTMLInputElement ? 
       this.$el : null; 
-  }
-
-  @Watch('focused')
-  onFocusChanged(value: boolean) {
-    if (value)
-      this.input?.focus();
   }
 
   preventBluring(): void {

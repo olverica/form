@@ -91,8 +91,8 @@ export default class TextField extends Vue implements Field, Validatable{
     validate(): boolean {
       let validated = this.validator.check(this.entry);
   
-      return validated === Validation.Passed 
-        ? true : false
+      return validated === Validation.Passed ? 
+        true : false
     }
   
     check() {
