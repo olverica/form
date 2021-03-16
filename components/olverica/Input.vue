@@ -12,7 +12,7 @@
       :type="icon || type"/>
 
     <div class="ol-field__wrapper">
-      <olverica-input-status
+      <olverica-text-title
         :maxlength="maxlength"
         :countable="countable"
         :entry="entry"
@@ -38,12 +38,12 @@
 <script lang="ts">
 import {Rule, Field, Form, isForm, Validatable} from '~/services/types' 
 import {Component, Inject, Prop} from 'vue-property-decorator'
-import {Validation, Validator} from '~/services/Validator';
+import {Validation, Validator} from '~/services/Validator'
 import {Min} from '~/services/Rules';
 import Vue from 'vue'
 
 @Component
-export default class OlvericInput extends Vue implements Field, Validatable{
+export default class OlvericInput extends Vue implements Field, Validatable {
   
   @Inject()
   readonly $form!: Form|null;

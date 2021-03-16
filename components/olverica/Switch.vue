@@ -28,7 +28,7 @@ export default class OlvericaSwitch extends Vue implements Field {
   @Prop({type: String, default: 'switch me!'}) 
   readonly title!: string;
 
-  @Prop({type: Boolean, default: 'switch'})
+  @Prop({type: String, default: 'switch'})
   readonly name!: string; 
 
   private active: boolean = false;

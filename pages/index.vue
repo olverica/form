@@ -6,22 +6,26 @@
       <olverica-input
         :maxlength="12"/>
 
-      <fieldset class="ol-field-defaults ol-field ol-field--textarea">
+      <!-- <fieldset class="ol-field-defaults ol-field ol-field--textarea">
         <label class="ol-field__title">
           Title
           <span class="ol-field__counter ol-field__counter--show">110/180</span>
         </label>
       </fieldset>
+ -->
 
-      <olverica-radio-button
+      <olverica-textarea
+        :maxlength="5"/>
+
+      <olverica-radio
         :title="'Prop'"
         :value="1"/>
 
-      <olverica-radio-button
+      <olverica-radio
         :title="'Data'"
         :value="2"/>
 
-      <olverica-radio-button
+      <olverica-radio
         :title="'Meth'"
         :value="3"/>
 
