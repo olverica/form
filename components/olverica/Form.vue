@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import {Data, Field,Form, isValidatable} from '~/services/types'
+import {Data, Field, isValidatable, Validatable} from '~/services/types'
 import Vue from 'vue'
 
 export default Vue.extend({
@@ -64,17 +64,21 @@ export default Vue.extend({
     },
 
     validate(): boolean {
-      let validated = true;
+      let firstFailed: Validatable|null = null;
 
       for (let field of this.fields) {
         if (!!!isValidatable(field)) 
           continue
 
-        if (!!!field.validate())
-          validated = false;
+        if (field.validate())
+          continue
+
+        if (!!!firstFailed)
+          firstFailed = field;
       }
 
-      return validated;
+      firstFailed?.focus();
+      return !!!firstFailed;
     },
 
     collect(): Data {
@@ -102,6 +106,23 @@ export default Vue.extend({
       let data = this.collect();
 
       this.$emit('submit', data, this.handleError);
+    },
+
+    submitField(target: Field): void {
+      let index = this.fields.indexOf(target);
+      if (index === -1)
+        throw Error('Cant find field');
+
+      for (let i = index + 1; i < this.fields.length; i++) {
+        let field = this.fields[i];
+
+        if (!!!isValidatable(field))
+          continue;
+
+        return field.focus();
+      }
+
+      this.submit();
     }
   }
 })

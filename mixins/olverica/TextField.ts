@@ -70,7 +70,7 @@ export default class TextField extends Vue implements Field, Validatable{
     focus(): void {
       this.focused = true;
     }
-  
+
     restrict() {
       this.validator.rules = this.rules;
     }
@@ -105,5 +105,12 @@ export default class TextField extends Vue implements Field, Validatable{
     check() {
       return this.entry.length ? 
         this.validate(): this.validator.clear();
+    }
+
+    async submit(): Promise<void> {
+      this.focused = false;
+      
+      await this.$nextTick;
+      this.form?.submitField(this);
     }
 }

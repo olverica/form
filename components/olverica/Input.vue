@@ -24,6 +24,7 @@
         :placeholder="placeholder"
         :maxlength="maxlength"
         :hidden="hidden"
+        @submit="submit"
         @validate="check"/>
     </div>
 

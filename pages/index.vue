@@ -4,12 +4,11 @@
       @submit="request">
 
       <olverica-input
-        :maxlength="12"
-        optional/>
+        :maxlength="12"/>
         
       <olverica-textarea
         :maxlength="123"
-        optional/>
+         :rules="rules"/>
 
       <olverica-radio
         :title="'Prop'"
@@ -30,6 +29,16 @@
       <olverica-select
         :map="selecProps"/>
 
+      <olverica-textarea
+        name="some"
+        :maxlength="123"
+        :rules="rules"/>
+
+      <olverica-textarea
+        name="somes"
+        :maxlength="123"
+        :rules="rules"/>
+
       <olverica-submit-button/>
 
     </olverica-form>
@@ -43,11 +52,15 @@
 import Vue from 'vue'
 import {Data} from 'services/types'
 import {Component} from 'vue-property-decorator'
+import {Min} from '~/services/Rules'
+
 
 @Component
 export default class IndexLayout extends Vue {
 
   private value = '';
+
+  private rules = [new Min(2)];
 
   private selecProps = [
     {label: 'I am senslessssssssss', value: 1},

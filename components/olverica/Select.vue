@@ -2,17 +2,21 @@
   <fieldset 
     class="ol-field-defaults ol-field ol-field--select"
     :class="{'ol-field--active': active,
-             'ol-field--error': failed,
-             'ol-field--focused': active}"
-    v-click-outside="hide"
-    @click="toggle">
+             'ol-field--mouseOver': active,
+             'ol-field--error': failed}"
+
+    v-click-outside="blur"
+    tabindex="0"
+
+    @click="toggle"
+    @keyup.enter.stop="submit">
 
     <label class="ol-field__select_title">{{ label }}</label>
   
     <div 
       class="ol-field__select_body"
-      @mouseover="focus"
-      @mouseleave="blur">
+      @mouseover="onMouseOver"
+      @mouseleave="onMouseLeave">
 
       <span 
         class="ol-field__select_placeholder"
@@ -65,7 +69,7 @@ export default class OlvericaSelect extends Vue implements Field, Validatable {
 
   private selected = -1;
   
-  private focused = false;
+  private mouseOver = false;
 
   private active = false;
 
@@ -93,8 +97,16 @@ export default class OlvericaSelect extends Vue implements Field, Validatable {
     this.register();
   }
 
+  onMouseOver() {
+    this.active = true;
+  }
+
+  onMouseLeave() {
+    this.mouseOver = false;
+  }
+
   isSelected(index: number): boolean {
-    return !!!this.focused && this.selected === index;
+    return !!!this.mouseOver && this.selected === index;
   }
   
   select(index: number) {
@@ -105,25 +117,29 @@ export default class OlvericaSelect extends Vue implements Field, Validatable {
     this.active = !!!this.active;
   }
 
-  hide() {
+  blur() {
     this.active = false;
   }
 
   focus() {
-    this.focused = true;
+    if (this.$el instanceof HTMLElement)
+      this.$el.focus();
+
+    this.active = true;
   }
 
-  blur() {
-    this.focused = false;
+  register() {
+    this.form?.register(this);
+  }
+
+  submit() {
+    this.blur();
+    this.form?.submitField(this);
   }
 
   validate(): boolean {
     this.validated = true;
     return !!!this.failed;
-  }
-
-  register() {
-    this.form?.register(this);
   }
 
   valuable(): boolean {

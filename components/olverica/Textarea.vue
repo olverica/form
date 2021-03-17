@@ -19,6 +19,7 @@
       :entry.sync="entry"
       :placeholder="placeholder"
       :maxlength="maxlength"
+      @submit="submit"
       @validate="check"/>
 
   </fieldset>

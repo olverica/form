@@ -7,7 +7,9 @@
 
     @input="oninput"
     @paste="onpaste"
-    @keypress="onkeypress">
+    @keypress="onkeypress"
+    @keydown.enter="onEnterDown"
+    @keyup.enter.stop="onEnterUp">
   </p>
 </template>
 
@@ -26,6 +28,8 @@ export default class Entry extends Vue {
   
   @Prop({type: Number,  default: null})
   readonly maxlength!: number|null;
+
+  private $focused = false;
 
   private static readonly allowedKeys =  [
     {code: 'ArrowRight'}, 
@@ -49,14 +53,19 @@ export default class Entry extends Vue {
     throw Error('Cant find textarea')
   }
 
-  @Watch('focused')
-  onFocusChanged(value: boolean) {
-    if (!!!value)
-      return;
 
-    this.textarea?.focus();
-    this.moveCarret();
-  }
+  @Watch('focused') 
+  onFocusChange(value: boolean) {
+    if (value === this.$focused)
+      return;
+    
+    if (value)  {
+      this.textarea?.focus();
+      this.moveCarret();
+    }
+    else
+      this.textarea?.blur();
+  } 
 
   moveCarret() {
     let range = new Range();
@@ -114,20 +123,24 @@ export default class Entry extends Vue {
       return event.preventDefault();
   }
 
-  onsubmit(event: KeyboardEvent): void {
-    if (event.shiftKey)
-      return;
-    
-    event.preventDefault();
-    this.$emit('submit');
+  onEnterDown(event: KeyboardEvent): void {
+    if (!!!event.shiftKey)
+      event.preventDefault();
+  }
+
+  onEnterUp(event: KeyboardEvent) {
+    if (!!!event.shiftKey)
+      this.$emit('submit');
   }
 
   onblur(): void {
+    this.$focused = false;
     this.$emit('validate');
     this.$emit('update:focused', false);
   }
 
   onfocus(): void {
+    this.$focused = true;
     this.$emit('update:focused', true);
   }
 

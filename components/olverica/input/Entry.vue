@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts">
-import {Component, Prop} from 'vue-property-decorator'
+import {Component, Prop, Watch} from 'vue-property-decorator'
 import Vue from 'vue'
 
 @Component
@@ -39,6 +39,8 @@ export default class Entry extends Vue {
 
   private blurDelay = 200;
 
+  private $focused = false;
+
   get inputType(): string {
     return this.hidden ? 'password' : this.type;
   }
@@ -48,6 +50,17 @@ export default class Entry extends Vue {
       this.$el : null; 
   }
 
+  @Watch('focused') 
+  onFocusChange(value: boolean) {
+    if (value === this.$focused)
+      return;
+
+    if (value)  
+      this.input?.focus();
+    else
+      this.input?.blur();
+  } 
+  
   preventBluring(): void {
     if (this.blurTimeout === null)
       return;
@@ -57,11 +70,15 @@ export default class Entry extends Vue {
   }
 
   onfocus(): void {
+    this.$focused = true;
+
     this.preventBluring();
     this.$emit('update:focused', true);
   }
 
   onblur(): void {
+    this.$focused = false;
+
     this.preventBluring();
     this.$emit('validate');
       
