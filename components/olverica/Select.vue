@@ -1,6 +1,6 @@
 <template>
   <fieldset 
-    class="ol-field-defaults ol-field ol-field--select"
+    class="ol-field-template ol-field ol-field--select"
     :class="{'ol-field--active': active,
              'ol-field--mouseOver': active,
              'ol-field--error': failed}"
@@ -18,25 +18,29 @@
       @mouseover="onMouseOver"
       @mouseleave="onMouseLeave">
 
-      <span 
-        class="ol-field__option--placeholder"
-        @click="select(-1)">
+      <div class="ol-field__wrapper">
+        <span 
+          class="ol-field__option--placeholder"
+          @click="select(-1)">
 
-        select your option
-      </span>
+          select your option
+        </span>
 
-      <span 
-        v-for="({label}, index) of this.map"
-        :key="index"
+        <span 
+          v-for="({label}, index) of this.map"
+          :key="index"
 
-        class="ol-field__option"
-        :class="{'ol-field__option--selected': isSelected(index)}"
-        
-        @click="select(index)">
-        
-        {{ label }}
-      </span>
+          class="ol-field__option"
+          :class="{'ol-field__option--selected': isSelected(index)}"
+          
+          @click="select(index)">
+          
+          {{ label }}
+        </span>
+      </div>
+
     </div>
+    
   </fieldset>
 </template>
 

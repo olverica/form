@@ -1,7 +1,7 @@
 <template>
   <i 
     class="ol-field__icon"
-    :class="'ol-field__icon--'+ type"/>
+    :class="'ol-field__icon'+ type"/>
 </template>
 
 <script lang="ts">

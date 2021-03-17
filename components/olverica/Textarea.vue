@@ -1,6 +1,6 @@
 <template>
   <fieldset 
-    class="ol-field-defaults ol-field ol-field--textarea"
+    class="ol-field-template ol-field ol-field--textarea"
     :class="{
       'ol-field--focused': focused,
       'ol-field--active': active}"

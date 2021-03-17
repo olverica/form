@@ -1,0 +1,137 @@
+@use "field-variables" as field
+@use "input-variables" as input
+@use "select-variables" as select
+@use "textarea-variables" as textarea
+
+// ===================
+// field default state
+// ===================
+
+.#{field.$class-name}.ol-field
+  width: field.$width
+  background: field.$background
+  box-shadow: field.$box-shadow
+  border-radius: field.$border-radius
+  // font
+  color: field.$color-title
+  font-size: field.$font-size
+  font-weight: field.$font-weight
+  transition: field.$transition
+  //
+  .ol-field__title
+    transition: field.$title-transition
+  // 
+  .ol-field__counter
+    transition: field.$counter-transition
+
+// ===================
+// input default state
+// ===================
+
+.#{field.$class-name}.ol-field--input
+  padding: 0 field.$padding
+  height: field.$height
+  column-gap: input.$column-gap
+  // 
+  .ol-field__icon
+    color: field.$color-icon
+    transition: input.$icon-transition
+  // 
+  .ol-field__button
+    color: field.$color-button
+  //
+  .ol-field__input
+    color: field.$color-entry
+    transition: input.$input-transition
+    // 
+    &::placeholder
+      color: field.$color-placeholder
+
+// ======================
+// textarea default state
+// ======================  
+
+.#{field.$class-name}.ol-field--textarea
+  padding: field.$padding
+  row-gap: textarea.$textarea-row-gap
+  min-height: textarea.$textarea-min-height
+  max-height: textarea.$textarea-max-height
+  // 
+  .ol-field__textarea
+    color: field.$color-entry
+    transition: textarea.$textarea-transition
+    // 
+    &::before
+      color: field.$color-placeholder
+
+// ====================
+// select default state
+// ==================== 
+
+.#{field.$class-name}.ol-field--select
+  height: field.$height
+  padding: 0 field.$padding
+  // 
+  .ol-field__title
+    transition: select.$title-transition
+  // 
+  .ol-field__select
+    padding: 0 field.$padding / 2
+    background: field.$background
+    border-radius: field.$border-radius
+    box-shadow: field.$box-shadow
+    z-index: select.$select-z-index
+    transition: select.$transition
+  // 
+  .ol-field__option
+    color: field.$color-title
+    padding: field.$padding / 2
+    border-radius: field.$border-radius / 2
+    transition: select.$option-transition
+    // 
+    &--selected,&:hover
+      color: field.$color-active
+      background: transparentize(field.$color-active, 0.9)
+    //
+    &--placeholder
+      padding: field.$padding / 4 field.$padding / 2
+      color: field.$color-placeholder
+
+
+// ===================
+// select active state
+// ===================
+
+.#{field.$class-name}.ol-field--select.ol-field--active
+  // 
+  .ol-field__select
+    padding: field.$padding / 2
+    margin-top: select.$margin-top
+    max-height: select.$max-height
+
+
+// ===================
+// field focused state
+// ===================
+.#{field.$class-name}.ol-field--focused 
+  background: #fff
+  box-shadow: 0px 10px 30px transparentize(#939399, 0.8)
+
+
+// ====================
+// field success status
+// ====================
+.#{field.$class-name}.ol-field--success
+  color: field.$color-success
+// ====================
+// field warning status
+// ====================
+.#{field.$class-name}.ol-field--warning
+  color: field.$color-warning
+// ==================
+// field error status
+// ==================
+.#{field.$class-name}.ol-field--error
+  color: field.$color-error
+
+
