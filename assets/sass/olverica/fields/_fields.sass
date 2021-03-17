@@ -1,0 +1,47 @@
+
+.ol-field
+  display: flex
+  cursor: pointer
+  position: relative
+
+
+.ol-field__title
+  cursor: inherit
+  color: inherit
+  font-size: 1em
+  line-height: 1
+  width: 100%
+  // flex
+  display: flex
+  align-items: center
+  justify-content: space-between
+
+
+.ol-field__counter
+  font-size: .8em
+  opacity: 0
+  // 
+  &--shown
+    opacity: 1
+
+//===============
+// field statuses
+//===============
+
+.ol-field--success, 
+.ol-field--error, 
+.ol-field--warning
+  .ol-field__icon
+    color: inherit !important
+
+
+
+@import input/input-layout
+@import select/select-layout
+@import textarea/textarea-layout
+
+
+
+
+
+

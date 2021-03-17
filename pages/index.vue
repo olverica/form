@@ -15,7 +15,7 @@
  -->
 
       <olverica-textarea
-        :maxlength="5"/>
+        :maxlength="180"/>
 
       <olverica-radio
         :title="'Prop'"

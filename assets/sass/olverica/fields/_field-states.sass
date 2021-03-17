@@ -1,8 +1,8 @@
-//=============
-// field states
-//=============
+//===================
+// input active state
+//===================
 
-.ol-field--active
+.ol-field--active.ol-field--input
   // 
   .ol-field__title
     font-size: 0.8em
@@ -11,9 +11,44 @@
     max-height: 1em
     margin-top: 0.3em
     opacity: 1
+
+//====================
+// select active state
+//==================== 
+
+.ol-field--active.ol-field--select
+  //
+  .ol-field__title
+    &::after
+      transform: rotate(180deg)
+  // 
+  .ol-field__select
+    max-height: 250px
+    padding: 10px
+    opacity: 1
+
+//======================
+// textarea active state
+//======================
+
+.ol-field--active.ol-field--textarea
+  // 
+  .ol-field__title
+    font-size: 0.8em
   // 
   .ol-field__textarea
     font-size: 1em
 
-.ol-field--focused
+//--------------------
+// input focused state
+//--------------------
+
+.ol-field--focused.ol-field--input
+  cursor: text
+
+//-----------------------
+// textarea focused state
+//-----------------------
+
+.ol-field--focused.ol-field--textarea
   cursor: text

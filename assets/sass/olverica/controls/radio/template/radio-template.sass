@@ -1,0 +1,33 @@
+@use "radio-variables" as radio
+
+// ===================
+// radio default state
+// ===================
+
+.#{radio.$class-name}
+  gap: radio.$gap
+  // 
+  .ol-controls__radio
+    width: radio.$size
+    height: radio.$size
+    background: radio.$background
+    border-radius: radio.$border-radius
+    box-shadow: inset 0 0 0 radio.$outline-size radio.$outline-color
+    transition: radio.$transition
+    // 
+    &::before
+      border-radius: radio.$dot-border-radius
+      background: radio.$background
+      transition: radio.$dot-transition
+
+// ==================
+// radio active state
+// ==================
+
+.#{radio.$class-name}
+  .ol-controls__radio--active
+    box-shadow: inset 0 0 0 radio.$size radio.$active-color
+    // 
+    &::before
+      height: radio.$dot-size
+      width: radio.$dot-size

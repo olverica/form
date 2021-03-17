@@ -1,0 +1,37 @@
+@use "checkbox-variables" as checkbox
+
+// ======================
+// checkbox default state
+// ======================
+
+.#{checkbox.$class-name}
+  gap: checkbox.$gap
+
+  // ==========================
+  // variables for active state
+  // ==========================
+
+  .ol-controls__checkbox
+    height: checkbox.$size
+    width: checkbox.$size
+    background: checkbox.$background
+    border-radius: checkbox.$border-radius
+    box-shadow: inset 0 0 0 checkbox.$outline-size checkbox.$outline-color
+    transition: checkbox.$transition
+    // 
+    &::before
+      font-family: checkbox.$icon-font-family
+      content: checkbox.$icon
+      color: checkbox.$icon-color
+      transition: checkbox.$icon-transition
+
+// =====================
+// checkbox active state
+// =====================
+
+.#{checkbox.$class-name}
+  .ol-controls__checkbox--active
+    box-shadow: inset 0 0 0 checkbox.$size checkbox.$active-color
+    // 
+    &::before
+      font-size: checkbox.$icon-size

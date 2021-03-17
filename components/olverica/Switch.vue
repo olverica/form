@@ -1,5 +1,5 @@
 <template>
-  <fieldset class="ol-switch-defaults ol-controls">
+  <fieldset class="ol-switch-template ol-controls">
     <button 
       class="ol-controls__switch"
       :class="{'ol-controls__switch--active': active}"

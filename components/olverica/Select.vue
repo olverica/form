@@ -7,15 +7,15 @@
     v-click-outside="hide"
     @click="toggle">
 
-    <label class="ol-field__select_title">{{ label }}</label>
+    <label class="ol-field__title">{{ label }}</label>
   
     <div 
-      class="ol-field__select_body"
+      class="ol-field__select"
       @mouseover="focus"
       @mouseleave="blur">
 
       <span 
-        class="ol-field__select_placeholder"
+        class="ol-field__option--placeholder"
         @click="select(-1)">
 
         select your option
@@ -25,8 +25,8 @@
         v-for="({label}, index) of this.map"
         :key="index"
 
-        class="ol-field__select_option"
-        :class="{'ol-field__select_option--selected': isSelected(index)}"
+        class="ol-field__option"
+        :class="{'ol-field__option--selected': isSelected(index)}"
         
         @click="select(index)">
         

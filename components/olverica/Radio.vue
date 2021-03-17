@@ -1,5 +1,5 @@
 <template>
-  <fieldset class="ol-radio-defaults ol-controls">
+  <fieldset class="ol-radio-template ol-controls">
     <button 
       class="ol-controls__radio"
       :class="{'ol-controls__radio--active': active}"

@@ -1,5 +1,5 @@
 <template>
-  <fieldset class="ol-checkbox-defaults ol-controls">
+  <fieldset class="ol-checkbox-template ol-controls">
     <button 
       class="ol-controls__checkbox"
       :class="{'ol-controls__checkbox--active': active}"

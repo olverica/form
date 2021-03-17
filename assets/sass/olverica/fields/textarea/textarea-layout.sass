@@ -1,0 +1,14 @@
+.ol-field--textarea
+  flex-direction: column
+
+
+.ol-field__textarea
+  width: 100%
+  font-size: 0.8em
+  cursor: inherit
+  word-break: break-word
+  overflow: overlay
+  display: block
+  &:empty
+    &::before
+      content: attr(placeholder)

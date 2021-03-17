@@ -3,9 +3,7 @@
     class="ol-field-defaults ol-field ol-field--textarea"
     :class="{
       'ol-field--focused': focused,
-      'ol-field--active': active, 
-      'ol-field--success': passed,
-      'ol-field--error': failed}"
+      'ol-field--active': active}"
     @click="focus">
 
     <olverica-text-title

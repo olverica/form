@@ -12,15 +12,15 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/icon?family=Material+Icons' },
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Round|' },
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Poppins:wght@400;500;600&display=swap' }
     ]
   },
 
-  // alias: {
-  //   "~": "",
-  //   "@": "assets/sass"
-  // },
+  alias: {
+    "~": "",
+    "@": "assets/sass"
+  },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [

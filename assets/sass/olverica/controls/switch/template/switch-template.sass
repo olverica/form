@@ -1,0 +1,37 @@
+@use "switch-variables" as switch
+
+// ====================
+// switch default state
+// ====================
+
+.#{switch.$class-name}
+  gap: 20px
+  // 
+  .ol-controls__switch
+    height: switch.$height
+    width: switch.$height * 2
+    border-radius: switch.$height
+    background: switch.$background
+    box-shadow: inset 0 0 0 switch.$outline-size switch.$outline-color 
+    transition: switch.$transition
+    // 
+    &::before
+      height: calc( 100% - (#{switch.$dot-gap} + #{switch.$outline-size}) * 2)
+      width: calc( 50% - (#{switch.$dot-gap} + #{switch.$outline-size}) * 2)
+      margin: switch.$dot-gap + switch.$outline-size
+      background: switch.$dot-background
+      transition: switch.$dot-transition
+
+// ===================
+// switch active state
+// ===================
+
+.#{switch.$class-name}
+  .ol-controls__switch--active
+    box-shadow: inset 0 0 0 switch.$height switch.$active-background
+    // 
+    &::before
+      background: switch.$active-dot-background
+      margin: switch.$dot-gap
+      height: calc( 100% - #{switch.$dot-gap} * 2)
+      width: calc( 50% - #{switch.$dot-gap} * 2)

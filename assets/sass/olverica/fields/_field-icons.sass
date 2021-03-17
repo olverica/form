@@ -1,10 +1,22 @@
-// ================
-// icons for button 
-// ================
+// =====================
+// icon for select title
+// =====================
+  
+.ol-field--select
+  // 
+  .ol-field__title
+    // 
+    &::after
+      font-family: "material icons round"
+      content: "arrow_drop_down"
+  
+// ======================
+// icons for input button 
+// ======================
 
 .ol-field__button
   &::before
-    font-family: "material icons"
+    font-family: "material icons round"
 
 .ol-field__button--shown
   &::before
@@ -14,13 +26,13 @@
   &::before
     content: "visibility_off"
 
-// =====
-// icons
-// =====
+// ================
+// icons for inputs
+// ================
 
 .ol-field__icon
   &::before
-    font-family: "material icons"
+    font-family: "material icons round"
 
 .ol-field__icon--person
   &::before
@@ -31,10 +43,3 @@
     content: "email"
 
 
-// 
-
-.ol-field__select_title
-    // 
-    &::after
-      font-family: "material icons"
-      content: "arrow_drop_down"

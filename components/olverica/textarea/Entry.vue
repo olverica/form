@@ -1,5 +1,6 @@
 <template>
-  <p 
+  <div 
+    class="ol-field__textarea"
     contenteditable
 
     :maxlength="maxlength"
@@ -10,7 +11,7 @@
     @input="oninput"
     @paste="onpaste"
     @keypress="onkeypress">
-  </p>
+  </div>
 </template>
 
 <script lang="ts">
