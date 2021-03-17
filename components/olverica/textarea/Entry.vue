@@ -3,14 +3,14 @@
     class="ol-field__textarea"
     contenteditable
 
-    :maxlength="maxlength"
-    :value="entry"
-
     @blur="onblur"
     @focus="onfocus"
+
     @input="oninput"
     @paste="onpaste"
-    @keypress="onkeypress">
+    @keypress="onkeypress"
+    @keydown.enter="onEnterDown"
+    @keyup.enter.stop="onEnterUp">
   </div>
 </template>
 
@@ -29,6 +29,8 @@ export default class Entry extends Vue {
   
   @Prop({type: Number,  default: null})
   readonly maxlength!: number|null;
+
+  private $focused = false;
 
   private static readonly allowedKeys =  [
     {code: 'ArrowRight'}, 
@@ -52,31 +54,32 @@ export default class Entry extends Vue {
     throw Error('Cant find textarea')
   }
 
-  @Watch('focused')
-  onFocusChanged(value: boolean) {
-    if (value)
-      this.textarea?.focus();
-  }
 
-  onfocus(): void {
-    this.$emit('update:focused', true);
-  }
-
-  onblur(): void {
-    this.$emit('validate');
-    this.$emit('update:focused', false);
-  }
-
-  oninput(): void {
-    this.$emit('update:entry', this.textarea.innerText);
-  }
-
-  onsubmit(event: KeyboardEvent): void {
-    if (event.shiftKey)
+  @Watch('focused') 
+  onFocusChange(value: boolean) {
+    if (value === this.$focused)
       return;
     
-    event.preventDefault();
-    this.$emit('submit');
+    if (value)  {
+      this.textarea?.focus();
+      this.moveCarret();
+    }
+    else
+      this.textarea?.blur();
+  } 
+
+  moveCarret() {
+    let range = new Range();
+    let selection = document.getSelection();
+    let text = this.textarea.firstChild;
+
+    if (!!!selection || !!!text || !!!text.textContent)
+      return;
+
+    range.setStart(text, text.textContent.length);
+
+    selection.removeAllRanges();
+    selection.addRange(range);
   }
 
   isAllowedKeyEvent(event: KeyboardEvent): boolean {
@@ -119,6 +122,32 @@ export default class Entry extends Vue {
 
     if (merged.length > this.maxlength)
       return event.preventDefault();
+  }
+
+  onEnterDown(event: KeyboardEvent): void {
+    if (!!!event.shiftKey)
+      event.preventDefault();
+  }
+
+  onEnterUp(event: KeyboardEvent) {
+    if (!!!event.shiftKey)
+      this.$emit('submit');
+  }
+
+  onblur(): void {
+    this.$focused = false;
+    this.$emit('validate');
+    this.$emit('update:focused', false);
+  }
+
+  onfocus(): void {
+    this.$focused = true;
+    this.$emit('update:focused', true);
+  }
+
+
+  oninput(): void {
+    this.$emit('update:entry', this.textarea.innerText);
   }
 }
 </script>

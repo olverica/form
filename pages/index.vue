@@ -5,17 +5,10 @@
 
       <olverica-input
         :maxlength="12"/>
-
-      <!-- <fieldset class="ol-field-defaults ol-field ol-field--textarea">
-        <label class="ol-field__title">
-          Title
-          <span class="ol-field__counter ol-field__counter--show">110/180</span>
-        </label>
-      </fieldset>
- -->
-
+        
       <olverica-textarea
-        :maxlength="180"/>
+        :maxlength="123"
+         :rules="rules"/>
 
       <olverica-radio
         :title="'Prop'"
@@ -36,6 +29,16 @@
       <olverica-select
         :map="selecProps"/>
 
+      <olverica-textarea
+        name="some"
+        :maxlength="123"
+        :rules="rules"/>
+
+      <olverica-textarea
+        name="somes"
+        :maxlength="123"
+        :rules="rules"/>
+
       <olverica-submit-button/>
 
     </olverica-form>
@@ -49,17 +52,24 @@
 import Vue from 'vue'
 import {Data} from 'services/types'
 import {Component} from 'vue-property-decorator'
+import {Min} from '~/services/Rules'
+
 
 @Component
 export default class IndexLayout extends Vue {
 
   private value = '';
 
+  private rules = [new Min(2)];
+
   private selecProps = [
     {label: 'I am senslessssssssss', value: 1},
     {label: 'I am senslessssssss', value: 2},
     {label: 'I am senslessssss', value: 3},
     {label: 'I am senslessss', value: 4},
+    {label: 'I am senslessssss', value: 3},
+    {label: 'I am senslessssssss', value: 2},
+    {label: 'I am senslessssssssss', value: 1}
   ]
 
   private request(data: Data, error: () => void) {

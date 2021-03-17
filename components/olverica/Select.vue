@@ -2,17 +2,21 @@
   <fieldset 
     class="ol-field-defaults ol-field ol-field--select"
     :class="{'ol-field--active': active,
-             'ol-field--error': failed,
-             'ol-field--focused': active}"
-    v-click-outside="hide"
-    @click="toggle">
+             'ol-field--mouseOver': active,
+             'ol-field--error': failed}"
+
+    v-click-outside="blur"
+    tabindex="0"
+
+    @click="toggle"
+    @keyup.enter.stop="submit">
 
     <label class="ol-field__title">{{ label }}</label>
   
     <div 
       class="ol-field__select"
-      @mouseover="focus"
-      @mouseleave="blur">
+      @mouseover="onMouseOver"
+      @mouseleave="onMouseLeave">
 
       <span 
         class="ol-field__option--placeholder"
@@ -60,9 +64,12 @@ export default class OlvericaSelect extends Vue implements Field, Validatable {
   @Prop({type: Number, default: -1})
   readonly default!: number;
 
+  @Prop({type: Boolean, default: false})
+  readonly optinal!: boolean;
+
   private selected = -1;
   
-  private focused = false;
+  private mouseOver = false;
 
   private active = false;
 
@@ -74,8 +81,7 @@ export default class OlvericaSelect extends Vue implements Field, Validatable {
   }
 
   get failed(): boolean {
-    return this.validated && 
-      (this.selected <= -1 || this.selected >= this.map.length);
+    return this.validated && !!!this.optinal && this.selected === -1;
   }
 
   get label(): string {
@@ -91,8 +97,16 @@ export default class OlvericaSelect extends Vue implements Field, Validatable {
     this.register();
   }
 
+  onMouseOver() {
+    this.active = true;
+  }
+
+  onMouseLeave() {
+    this.mouseOver = false;
+  }
+
   isSelected(index: number): boolean {
-    return !!!this.focused && this.selected === index;
+    return !!!this.mouseOver && this.selected === index;
   }
   
   select(index: number) {
@@ -103,16 +117,24 @@ export default class OlvericaSelect extends Vue implements Field, Validatable {
     this.active = !!!this.active;
   }
 
-  hide() {
+  blur() {
     this.active = false;
   }
 
   focus() {
-    this.focused = true;
+    if (this.$el instanceof HTMLElement)
+      this.$el.focus();
+
+    this.active = true;
   }
 
-  blur() {
-    this.focused = false;
+  register() {
+    this.form?.register(this);
+  }
+
+  submit() {
+    this.blur();
+    this.form?.submitField(this);
   }
 
   validate(): boolean {
@@ -120,11 +142,10 @@ export default class OlvericaSelect extends Vue implements Field, Validatable {
     return !!!this.failed;
   }
 
-  register() {
-    this.form?.register(this);
-  }
-
   valuable(): boolean {
+    if (this.optinal && this.selected === -1)
+      return false;
+
     return true;
   }
 

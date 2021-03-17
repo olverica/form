@@ -12,10 +12,14 @@ export interface Data {
 }
 
 export interface Form {
+    dirty(): boolean;
+    find(name: string): Field; 
+
     submit(): void;
+    submitField(el: Field): void;
+
     detach(el: Field): void;
     register(el: Field): void;
-    find(name: string): Field; 
 }
 
 export function isForm(form: unknown): form is Form {
@@ -23,6 +27,7 @@ export function isForm(form: unknown): form is Form {
         && form !== null
         && 'dirty' in form
         && 'submit' in form
+        && 'submitField' in form
         && 'detach' in form
         && 'register' in form
 }
