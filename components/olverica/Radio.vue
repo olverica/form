@@ -13,8 +13,8 @@
 
 <script lang="ts">
 import {Component, Prop, Mixins} from 'vue-property-decorator'
-import ControlField from '~/mixins/olverica/ControlField';
 import {Radio, RadioGroup} from '~/services/Radio'
+import ControlField from '~/mixins/olverica/ControlField'
 
 @Component
 export default class RadioButton extends Mixins(ControlField) implements Radio {

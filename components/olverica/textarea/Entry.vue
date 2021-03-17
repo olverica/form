@@ -2,11 +2,9 @@
   <p 
     contenteditable
 
-    :maxlength="maxlength"
-    :value="entry"
-
     @blur="onblur"
     @focus="onfocus"
+
     @input="oninput"
     @paste="onpaste"
     @keypress="onkeypress">
@@ -53,29 +51,25 @@ export default class Entry extends Vue {
 
   @Watch('focused')
   onFocusChanged(value: boolean) {
-    if (value)
-      this.textarea?.focus();
-  }
-
-  onfocus(): void {
-    this.$emit('update:focused', true);
-  }
-
-  onblur(): void {
-    this.$emit('validate');
-    this.$emit('update:focused', false);
-  }
-
-  oninput(): void {
-    this.$emit('update:entry', this.textarea.innerText);
-  }
-
-  onsubmit(event: KeyboardEvent): void {
-    if (event.shiftKey)
+    if (!!!value)
       return;
-    
-    event.preventDefault();
-    this.$emit('submit');
+
+    this.textarea?.focus();
+    this.moveCarret();
+  }
+
+  moveCarret() {
+    let range = new Range();
+    let selection = document.getSelection();
+    let text = this.textarea.firstChild;
+
+    if (!!!selection || !!!text || !!!text.textContent)
+      return;
+
+    range.setStart(text, text.textContent.length);
+
+    selection.removeAllRanges();
+    selection.addRange(range);
   }
 
   isAllowedKeyEvent(event: KeyboardEvent): boolean {
@@ -118,6 +112,28 @@ export default class Entry extends Vue {
 
     if (merged.length > this.maxlength)
       return event.preventDefault();
+  }
+
+  onsubmit(event: KeyboardEvent): void {
+    if (event.shiftKey)
+      return;
+    
+    event.preventDefault();
+    this.$emit('submit');
+  }
+
+  onblur(): void {
+    this.$emit('validate');
+    this.$emit('update:focused', false);
+  }
+
+  onfocus(): void {
+    this.$emit('update:focused', true);
+  }
+
+
+  oninput(): void {
+    this.$emit('update:entry', this.textarea.innerText);
   }
 }
 </script>

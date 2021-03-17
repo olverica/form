@@ -8,7 +8,7 @@
         optional/>
         
       <olverica-textarea
-        :maxlength="5"
+        :maxlength="123"
         optional/>
 
       <olverica-radio
