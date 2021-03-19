@@ -7,28 +7,40 @@ $class-name: ol-field-template
 // ===========================
 // variables for default state
 // ===========================
+
 $font-size: 1em
 $font-weight: 400
 // colors
-$background: #FCFCFC
-$color-title: #9599ae
-$color-entry: #18181A
-$color-placeholder: #8489a1
-$color-icon: #ffd111
-$color-button: #8489a1
-$color-box-shadow: transparentize(#939399, 0.9)
+$background: #FAFAFA
+$color-title: #808080
+$color-entry: #1a1a1a
+$color-placeholder: #B2B2B2
+$color-icon: #3366FF
+$color-button: #B2B2B2
+$color-box-shadow: transparentize(#999999, 0.8)
+$color-outline: #E5E4E4
 // statuses colors
-$color-error: #ec4646
-$color-success: #16c79a
-$color-warning: #ffc75f
-$color-active: #3366ff
+$color-error: #F23D5C
+$color-success: #2BD982
+$color-warning: #F2B63D
+$color-active: #3366FF
 // shape
 $width: 600px
 $height: 60px
 $border-radius: 20px
-$box-shadow: 0px 5px 20px $color-box-shadow
+$box-shadow: 0px 5px 30px $color-box-shadow
 $padding: 20px
+$outline-size: 2px 
 // transitions
-$transition: background .3s, box-shadow .3s  
+$transition: background .3s, box-shadow .3s, border .3s 
 $title-transition: font-size .3s, color .3s 
 $counter-transition: opacity .3s
+
+// ==========================
+// variables for active state
+// ==========================
+// colors
+$active-background: #fff
+$active-color-box-shadow: transparentize(#666666, 0.8)
+// shape
+$active-box-shadow: 0px 15px 40px $active-color-box-shadow
