@@ -41,7 +41,7 @@ export default class TextField extends Vue implements Field, Validatable{
     }
   
     get active(): boolean {
-      return this.focused || Boolean(this.entry.length);
+      return this.focused || Boolean(this.entry.trim().length);
     }
   
     get failed(): boolean {

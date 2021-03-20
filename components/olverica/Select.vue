@@ -2,7 +2,7 @@
   <fieldset 
     class="ol-field-template ol-field ol-field--select"
     :class="{'ol-field--active': active,
-             'ol-field--mouseOver': active,
+             'ol-field--focus': active,
              'ol-field--error': failed}"
 
     v-click-outside="blur"
@@ -102,7 +102,7 @@ export default class OlvericaSelect extends Vue implements Field, Validatable {
   }
 
   onMouseOver() {
-    this.active = true;
+    this.mouseOver = true;
   }
 
   onMouseLeave() {
